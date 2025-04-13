@@ -1,5 +1,5 @@
-import pydantic
 import pandas
+import pydantic
 
 
 class HelloWordMode(pydantic.BaseModel):
