@@ -1,0 +1,17 @@
+load("@monorepo_pip//:requirements.bzl", "requirement")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+
+py_library(
+    name = "hello_world_lib",
+    srcs = ["main.py"],
+    deps = [
+      requirement("pydantic"),
+    ],
+)
+
+py_binary(
+    name = "hello_world",
+    srcs = ["main.py"],
+    main = "main.py",
+    deps = [":hello_world_lib"],
+)
