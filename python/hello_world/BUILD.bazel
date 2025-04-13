@@ -13,5 +13,7 @@ py_binary(
     name = "hello_world",
     srcs = ["main.py"],
     main = "main.py",
-    deps = [":hello_world_lib"],
+    deps = [
+      ":hello_world_lib",
+    ],
 )

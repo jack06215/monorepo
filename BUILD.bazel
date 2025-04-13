@@ -1,1 +1,3 @@
-exports_files(["requirements.txt"])
+exports_files(
+  srcs=["requirements.txt"],
+)
