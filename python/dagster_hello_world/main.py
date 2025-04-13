@@ -1,18 +1,11 @@
-import pandas
-import pydantic
+import subprocess
+import sys
+from pathlib import Path
 
-
-class HelloWordMode(pydantic.BaseModel):
-    """Hello world dataclass."""
-
-    message: str
-
-
-def main() -> None:
-    res = HelloWordMode(message="Hello world")
-    print(res)
-    print(pandas.__version__)
-
+PROJECT_ROOT = Path(__file__).parent
 
 if __name__ == "__main__":
-    main()
+    asset_path = PROJECT_ROOT / "assets.py"
+    subprocess.run(
+        ["dagster", "dev", "-f", str(asset_path)] + sys.argv[1:],
+    )
