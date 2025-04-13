@@ -1,4 +1,15 @@
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
+
 # Python: make requirements.txt visible to the project.
 exports_files(
   srcs=["requirements.txt"],
+)
+
+buildifier(
+    name = "buildifier.check",
+    exclude_patterns = [
+        "./.git/*",
+    ],
+    lint_mode = "warn",
+    mode = "diff",
 )
