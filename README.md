@@ -1,11 +1,6 @@
 # Monorepo
 
-Monorepository
+Monorepo, currently support
 
-## Python-specific command
-
-- Output `requirements.txt` from poetry
-
-```sh
-poetry export -f requirements.txt -o requirements.txt --without-hashes
-```
+- `//python/`: Most of the side projects are written in Python.
+- `//cpp/leetcode_algorithm`: LeeCode programming exercise.
