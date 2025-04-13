@@ -1,3 +1,4 @@
 .mypy_chace
 bazel-*
-
+.tmp*
+**/__pycache__

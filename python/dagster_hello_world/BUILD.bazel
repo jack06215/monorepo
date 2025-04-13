@@ -1,0 +1,20 @@
+load("@monorepo_pip//:requirements.bzl", "requirement")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+
+py_library(
+    name = "dagster_hello_world_lib",
+    srcs = ["main.py"],
+    deps = [
+      requirement("pydantic"),
+      requirement("pandas"),
+    ],
+)
+
+py_binary(
+    name = "dagster_hello_world",
+    srcs = ["main.py"],
+    main = "main.py",
+    deps = [
+      ":dagster_hello_world_lib",
+    ],
+)
