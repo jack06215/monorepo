@@ -1,0 +1,14 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+
+cc_library(
+  name = "prettyprint",
+  srcs = ["prettyprint.h"],
+)
+
+cc_binary(
+    name = "66_plus_one",
+    srcs = ["66_plus_one.cpp"],
+    deps = [
+      ":prettyprint",
+    ],
+)

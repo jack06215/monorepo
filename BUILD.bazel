@@ -1,3 +1,5 @@
+# Python: make requirements.txt visible to the project.
 exports_files(
   srcs=["requirements.txt"],
 )
+z
