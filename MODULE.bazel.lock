@@ -233,7 +233,7 @@
         "bzlTransitiveDigest": "+D0pesQWVftxFrDIgPJ73YmMFEclIwO1GnRJt0A/vOM=",
         "usagesDigest": "tIO2WL+WyGIRdcjehk+qdUHObtupPAfbuq5Xv21fwOY=",
         "recordedFileInputs": {
-          "@@//requirements.txt": "c71aec0f557d9dcab30dec5a46bf7e2a283140fa2e6f289276e4a1301a2b9002",
+          "@@//requirements.txt": "f3139fe5e40385dd60686bf9e22c2a0f972b1614eb94db5162632f28fc4c754f",
           "@@protobuf+//python/requirements.txt": "983be60d3cec4b319dcab6d48aeb3f5b2f7c3350f26b3a9e97486c37967c73c5",
           "@@rules_fuzzing+//fuzzing/requirements.txt": "ab04664be026b632a0d2a2446c4f65982b7654f5b6851d2f9d399a19b7242a5b",
           "@@rules_python++internal_deps+pypi__packaging//packaging-24.0.dist-info/RECORD": "be1aea790359b4c2c9ea83d153c1a57c407742a35b95ee36d00723509f5ed5dd",
@@ -267,6 +267,235 @@
               "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
               "repo": "monorepo_pip_311",
               "requirement": "annotated-types==0.7.0"
+            }
+          },
+          "monorepo_pip_311_anyio": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "anyio==4.9.0"
+            }
+          },
+          "monorepo_pip_311_asyncpg": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "asyncpg==0.30.0"
+            }
+          },
+          "monorepo_pip_311_click": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "click==8.1.8"
+            }
+          },
+          "monorepo_pip_311_colorama": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "colorama==0.4.6"
+            }
+          },
+          "monorepo_pip_311_databases": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "databases[postgresql]==0.9.0"
+            }
+          },
+          "monorepo_pip_311_fastapi": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "fastapi==0.115.12"
+            }
+          },
+          "monorepo_pip_311_greenlet": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_x86_64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "greenlet==3.1.1"
+            }
+          },
+          "monorepo_pip_311_h11": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "h11==0.14.0"
+            }
+          },
+          "monorepo_pip_311_idna": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "idna==3.10"
+            }
+          },
+          "monorepo_pip_311_numpy": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "numpy==2.2.4"
+            }
+          },
+          "monorepo_pip_311_pandas": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "pandas==2.2.3"
+            }
+          },
+          "monorepo_pip_311_psycopg2_binary": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "psycopg2-binary==2.9.10"
             }
           },
           "monorepo_pip_311_pydantic": {
@@ -309,6 +538,146 @@
               "requirement": "pydantic-core==2.33.1"
             }
           },
+          "monorepo_pip_311_python_dateutil": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "python-dateutil==2.9.0.post0"
+            }
+          },
+          "monorepo_pip_311_python_dotenv": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "python-dotenv==1.1.0"
+            }
+          },
+          "monorepo_pip_311_pytz": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "pytz==2025.2"
+            }
+          },
+          "monorepo_pip_311_six": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "six==1.17.0"
+            }
+          },
+          "monorepo_pip_311_sniffio": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "sniffio==1.3.1"
+            }
+          },
+          "monorepo_pip_311_sqlalchemy": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "sqlalchemy==2.0.40"
+            }
+          },
+          "monorepo_pip_311_starlette": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "starlette==0.46.1"
+            }
+          },
           "monorepo_pip_311_typing_extensions": {
             "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
             "attributes": {
@@ -347,6 +716,46 @@
               "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
               "repo": "monorepo_pip_311",
               "requirement": "typing-inspection==0.4.0"
+            }
+          },
+          "monorepo_pip_311_tzdata": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "tzdata==2025.2"
+            }
+          },
+          "monorepo_pip_311_uvicorn": {
+            "repoRuleId": "@@rules_python+//python/private/pypi:whl_library.bzl%whl_library",
+            "attributes": {
+              "dep_template": "@monorepo_pip//{name}:{target}",
+              "download_only": true,
+              "experimental_target_platforms": [
+                "cp311_linux_aarch64",
+                "cp311_linux_arm",
+                "cp311_linux_ppc",
+                "cp311_linux_s390x",
+                "cp311_linux_x86_64",
+                "cp311_osx_aarch64",
+                "cp311_osx_x86_64",
+                "cp311_windows_x86_64"
+              ],
+              "python_interpreter_target": "@@rules_python++python+python_3_11_host//:python",
+              "repo": "monorepo_pip_311",
+              "requirement": "uvicorn==0.34.0"
             }
           },
           "pip_deps_310_numpy": {
@@ -2751,17 +3160,57 @@
               "extra_hub_aliases": {},
               "whl_map": {
                 "annotated_types": "{\"monorepo_pip_311_annotated_types\":[{\"version\":\"3.11\"}]}",
+                "anyio": "{\"monorepo_pip_311_anyio\":[{\"version\":\"3.11\"}]}",
+                "asyncpg": "{\"monorepo_pip_311_asyncpg\":[{\"version\":\"3.11\"}]}",
+                "click": "{\"monorepo_pip_311_click\":[{\"version\":\"3.11\"}]}",
+                "colorama": "{\"monorepo_pip_311_colorama\":[{\"version\":\"3.11\"}]}",
+                "databases": "{\"monorepo_pip_311_databases\":[{\"version\":\"3.11\"}]}",
+                "fastapi": "{\"monorepo_pip_311_fastapi\":[{\"version\":\"3.11\"}]}",
+                "greenlet": "{\"monorepo_pip_311_greenlet\":[{\"version\":\"3.11\"}]}",
+                "h11": "{\"monorepo_pip_311_h11\":[{\"version\":\"3.11\"}]}",
+                "idna": "{\"monorepo_pip_311_idna\":[{\"version\":\"3.11\"}]}",
+                "numpy": "{\"monorepo_pip_311_numpy\":[{\"version\":\"3.11\"}]}",
+                "pandas": "{\"monorepo_pip_311_pandas\":[{\"version\":\"3.11\"}]}",
+                "psycopg2_binary": "{\"monorepo_pip_311_psycopg2_binary\":[{\"version\":\"3.11\"}]}",
                 "pydantic": "{\"monorepo_pip_311_pydantic\":[{\"version\":\"3.11\"}]}",
                 "pydantic_core": "{\"monorepo_pip_311_pydantic_core\":[{\"version\":\"3.11\"}]}",
+                "python_dateutil": "{\"monorepo_pip_311_python_dateutil\":[{\"version\":\"3.11\"}]}",
+                "python_dotenv": "{\"monorepo_pip_311_python_dotenv\":[{\"version\":\"3.11\"}]}",
+                "pytz": "{\"monorepo_pip_311_pytz\":[{\"version\":\"3.11\"}]}",
+                "six": "{\"monorepo_pip_311_six\":[{\"version\":\"3.11\"}]}",
+                "sniffio": "{\"monorepo_pip_311_sniffio\":[{\"version\":\"3.11\"}]}",
+                "sqlalchemy": "{\"monorepo_pip_311_sqlalchemy\":[{\"version\":\"3.11\"}]}",
+                "starlette": "{\"monorepo_pip_311_starlette\":[{\"version\":\"3.11\"}]}",
                 "typing_extensions": "{\"monorepo_pip_311_typing_extensions\":[{\"version\":\"3.11\"}]}",
-                "typing_inspection": "{\"monorepo_pip_311_typing_inspection\":[{\"version\":\"3.11\"}]}"
+                "typing_inspection": "{\"monorepo_pip_311_typing_inspection\":[{\"version\":\"3.11\"}]}",
+                "tzdata": "{\"monorepo_pip_311_tzdata\":[{\"version\":\"3.11\"}]}",
+                "uvicorn": "{\"monorepo_pip_311_uvicorn\":[{\"version\":\"3.11\"}]}"
               },
               "packages": [
                 "annotated_types",
+                "anyio",
+                "asyncpg",
+                "click",
+                "databases",
+                "fastapi",
+                "h11",
+                "idna",
+                "numpy",
+                "pandas",
+                "psycopg2_binary",
                 "pydantic",
                 "pydantic_core",
+                "python_dateutil",
+                "python_dotenv",
+                "pytz",
+                "six",
+                "sniffio",
+                "sqlalchemy",
+                "starlette",
                 "typing_extensions",
-                "typing_inspection"
+                "typing_inspection",
+                "tzdata",
+                "uvicorn"
               ],
               "groups": {}
             }
