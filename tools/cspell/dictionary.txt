@@ -4,6 +4,7 @@ dagster
 dotenv
 fastapi
 langchain_core
+leetcode
 mesop
 openai
 openai
