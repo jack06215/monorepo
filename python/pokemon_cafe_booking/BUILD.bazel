@@ -1,0 +1,32 @@
+load("@monorepo_pip//:requirements.bzl", "requirement")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+
+filegroup(
+  name = "pokemon_cafe_booking_driver",
+  data = ["chromedriver.exe"],
+  visibility = [":__subpackages__"],
+)
+
+py_library(
+    name = "pokemon_cafe_booking_lib",
+    srcs = [
+      "main.py", 
+      "definition.py",
+    ],
+    data = [
+      ":pokemon_cafe_booking_driver",
+    ],
+    deps = [
+      requirement("pydantic"),
+      requirement("selenium"),
+    ],
+)
+
+py_binary(
+    name = "pokemon_cafe_booking",
+    srcs = ["main.py"],
+    main = "main.py",
+    deps = [
+      ":pokemon_cafe_booking_lib",
+    ],
+)

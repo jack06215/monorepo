@@ -26,5 +26,3 @@ pip.parse(
     requirements_lock = "//:requirements.txt",
 )
 use_repo(pip, "monorepo_pip")
-
-
