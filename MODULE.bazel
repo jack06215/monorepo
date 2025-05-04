@@ -20,9 +20,9 @@ python.toolchain(
 
 # Setup requirement.txt
 pip.parse(
-    download_only = True,
-    hub_name = "monorepo_pip",
-    python_version = "3.11",
-    requirements_lock = "//:requirements.txt",
+    hub_name           = "monorepo_pip",
+    python_version     = "3.11",
+    requirements_lock  = "//:requirements.txt",
+    extra_pip_args     = ["--no-binary=pypika"],
 )
 use_repo(pip, "monorepo_pip")

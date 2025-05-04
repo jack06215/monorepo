@@ -1,0 +1,25 @@
+load("@monorepo_pip//:requirements.bzl", "requirement")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+
+py_library(
+    name = "crewai_hello_world_lib",
+    srcs = ["main.py"],
+    data = glob(
+      [".env*"],
+    ),
+    deps = [
+      requirement("crewai"),
+      requirement("pandas"),
+    ],
+)
+
+py_binary(
+    name = "crewai_hello_world",
+    srcs = glob(
+      ["*.py"]
+    ),
+    main = "main.py",
+    deps = [
+      ":crewai_hello_world_lib",
+    ],
+)
