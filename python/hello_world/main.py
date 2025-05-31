@@ -3,7 +3,7 @@ import pydantic
 
 
 class HelloWordMode(pydantic.BaseModel):
-    """Hello world dataclass."""
+    """Hello world dataclass. Test."""
 
     message: str
 

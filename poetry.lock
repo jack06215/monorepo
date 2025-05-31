@@ -1418,14 +1418,14 @@ dev = ["black (==22.3.0)", "hypothesis (<6.123.0)", "numpy", "pytest (>=5.30)", 
 
 [[package]]
 name = "crewai"
-version = "0.118.0"
+version = "0.121.1"
 description = "Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks."
 optional = false
 python-versions = "<3.13,>=3.10"
 groups = ["main"]
 files = [
-    {file = "crewai-0.118.0-py3-none-any.whl", hash = "sha256:c6ffb34169756e565c403cadb709da7d69979f31e1d8d7504e61fe21e3d571f8"},
-    {file = "crewai-0.118.0.tar.gz", hash = "sha256:7d42b1552006c0b4b60acc9390a05ca16503669e34fd3e30d07996379e66b15b"},
+    {file = "crewai-0.121.1-py3-none-any.whl", hash = "sha256:8540e97ce53426d833d4b4e32c375cf8115a8a71f0bfa9aac2e940fa92f73b7c"},
+    {file = "crewai-0.121.1.tar.gz", hash = "sha256:f56020e12e8bb88cc789c2ce819b43a04fb22347a766144d8810035a0be016c5"},
 ]
 
 [package.dependencies]
@@ -1434,12 +1434,12 @@ auth0-python = ">=4.7.1"
 blinker = ">=1.9.0"
 chromadb = ">=0.5.23"
 click = ">=8.1.7"
-crewai-tools = {version = ">=0.42.2,<0.43.0", optional = true, markers = "extra == \"tools\""}
+crewai-tools = {version = ">=0.45.0,<0.46.0", optional = true, markers = "extra == \"tools\""}
 instructor = ">=1.3.3"
 json-repair = ">=0.25.2"
 json5 = ">=0.10.0"
 jsonref = ">=1.1.0"
-litellm = "1.67.1"
+litellm = "1.68.0"
 openai = ">=1.13.3"
 openpyxl = ">=3.1.5"
 opentelemetry-api = ">=1.30.0"
@@ -1464,24 +1464,24 @@ mem0 = ["mem0ai (>=0.1.94)"]
 openpyxl = ["openpyxl (>=3.1.5)"]
 pandas = ["pandas (>=2.2.3)"]
 pdfplumber = ["pdfplumber (>=0.11.4)"]
-tools = ["crewai-tools (>=0.42.2,<0.43.0)"]
+tools = ["crewai-tools (>=0.45.0,<0.46.0)"]
 
 [[package]]
 name = "crewai-tools"
-version = "0.42.2"
+version = "0.45.0"
 description = "Set of tools for the crewAI framework"
 optional = false
 python-versions = "<=3.13,>=3.10"
 groups = ["main"]
 files = [
-    {file = "crewai_tools-0.42.2-py3-none-any.whl", hash = "sha256:13727fb68f0efefd21edeb281be3d66ff2f5a3b5029d4e6adef388b11fd5846a"},
-    {file = "crewai_tools-0.42.2.tar.gz", hash = "sha256:69365ffb168cccfea970e09b308905aa5007cfec60024d731ffac1362a0153c0"},
+    {file = "crewai_tools-0.45.0-py3-none-any.whl", hash = "sha256:9dd34e4792c075ee7a72134aedaab268e78d0e350114fd7fe2426e691c5f52a3"},
+    {file = "crewai_tools-0.45.0.tar.gz", hash = "sha256:1b2e4eff3f928ce5fac308d6e648719a0e4718a1228ae98980aa0d74fc16bfc7"},
 ]
 
 [package.dependencies]
 chromadb = ">=0.4.22"
 click = ">=8.1.8"
-crewai = ">=0.117.0"
+crewai = ">=0.119.0"
 docker = ">=7.1.0"
 embedchain = ">=0.1.114"
 lancedb = ">=0.5.4"
@@ -1499,6 +1499,7 @@ composio-core = ["composio-core (>=0.6.11.post1)"]
 databricks-sdk = ["databricks-sdk (>=0.46.0)"]
 exa-py = ["exa-py (>=1.8.7)"]
 firecrawl-py = ["firecrawl-py (>=1.8.0)"]
+github = ["gitpython (==3.1.38)", "pygithub (==1.59.1)"]
 hyperbrowser = ["hyperbrowser (>=0.18.0)"]
 linkup-sdk = ["linkup-sdk (>=0.2.2)"]
 mcp = ["mcp (>=1.6.0)", "mcpadapt (>=0.1.3)"]
@@ -1512,7 +1513,10 @@ serpapi = ["serpapi (>=0.1.5)"]
 snowflake = ["cryptography (>=43.0.3)", "snowflake-connector-python (>=3.12.4)", "snowflake-sqlalchemy (>=1.7.3)"]
 spider-client = ["spider-client (>=0.1.25)"]
 sqlalchemy = ["sqlalchemy (>=2.0.35)"]
+stagehand = ["stagehand-py (>=0.3.6)"]
+tavily-python = ["tavily-python (>=0.5.4)"]
 weaviate-client = ["weaviate-client (>=4.10.2)"]
+xml = ["unstructured[all-docs,local-inference] (>=0.17.2)"]
 
 [[package]]
 name = "cryptography"
@@ -4686,14 +4690,14 @@ pytest = ["pytest (>=7.0.0)", "rich (>=13.9.4,<14.0.0)"]
 
 [[package]]
 name = "litellm"
-version = "1.67.1"
+version = "1.68.0"
 description = "Library to easily interface with LLM API providers"
 optional = false
 python-versions = "!=2.7.*,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,!=3.7.*,>=3.8"
 groups = ["main"]
 files = [
-    {file = "litellm-1.67.1-py3-none-any.whl", hash = "sha256:8fff5b2a16b63bb594b94d6c071ad0f27d3d8cd4348bd5acea2fd40c8e0c11e8"},
-    {file = "litellm-1.67.1.tar.gz", hash = "sha256:78eab1bd3d759ec13aa4a05864356a4a4725634e78501db609d451bf72150ee7"},
+    {file = "litellm-1.68.0-py3-none-any.whl", hash = "sha256:3bca38848b1a5236b11aa6b70afa4393b60880198c939e582273f51a542d4759"},
+    {file = "litellm-1.68.0.tar.gz", hash = "sha256:9fb24643db84dfda339b64bafca505a2eef857477afbc6e98fb56512c24dbbfa"},
 ]
 
 [package.dependencies]
@@ -4703,7 +4707,7 @@ httpx = ">=0.23.0"
 importlib-metadata = ">=6.8.0"
 jinja2 = ">=3.1.2,<4.0.0"
 jsonschema = ">=4.22.0,<5.0.0"
-openai = ">=1.68.2"
+openai = ">=1.68.2,<1.76.0"
 pydantic = ">=2.0.0,<3.0.0"
 python-dotenv = ">=0.2.0"
 tiktoken = ">=0.7.0"
@@ -4711,7 +4715,7 @@ tokenizers = "*"
 
 [package.extras]
 extra-proxy = ["azure-identity (>=1.15.0,<2.0.0)", "azure-keyvault-secrets (>=4.8.0,<5.0.0)", "google-cloud-kms (>=2.21.3,<3.0.0)", "prisma (==0.11.0)", "redisvl (>=0.4.1,<0.5.0) ; python_version >= \"3.9\" and python_version < \"3.14\"", "resend (>=0.8.0,<0.9.0)"]
-proxy = ["PyJWT (>=2.8.0,<3.0.0)", "apscheduler (>=3.10.4,<4.0.0)", "backoff", "boto3 (==1.34.34)", "cryptography (>=43.0.1,<44.0.0)", "fastapi (>=0.115.5,<0.116.0)", "fastapi-sso (>=0.16.0,<0.17.0)", "gunicorn (>=23.0.0,<24.0.0)", "litellm-proxy-extras (==0.1.11)", "mcp (==1.5.0) ; python_version >= \"3.10\"", "orjson (>=3.9.7,<4.0.0)", "pynacl (>=1.5.0,<2.0.0)", "python-multipart (>=0.0.18,<0.0.19)", "pyyaml (>=6.0.1,<7.0.0)", "rq", "uvicorn (>=0.29.0,<0.30.0)", "uvloop (>=0.21.0,<0.22.0)", "websockets (>=13.1.0,<14.0.0)"]
+proxy = ["PyJWT (>=2.8.0,<3.0.0)", "apscheduler (>=3.10.4,<4.0.0)", "backoff", "boto3 (==1.34.34)", "cryptography (>=43.0.1,<44.0.0)", "fastapi (>=0.115.5,<0.116.0)", "fastapi-sso (>=0.16.0,<0.17.0)", "gunicorn (>=23.0.0,<24.0.0)", "litellm-proxy-extras (==0.1.15)", "mcp (==1.5.0) ; python_version >= \"3.10\"", "orjson (>=3.9.7,<4.0.0)", "pynacl (>=1.5.0,<2.0.0)", "python-multipart (>=0.0.18,<0.0.19)", "pyyaml (>=6.0.1,<7.0.0)", "rq", "uvicorn (>=0.29.0,<0.30.0)", "uvloop (>=0.21.0,<0.22.0) ; sys_platform != \"win32\"", "websockets (>=13.1.0,<14.0.0)"]
 
 [[package]]
 name = "mako"
@@ -10181,4 +10185,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">3.11,<3.13"
-content-hash = "e6039a8407d7a5865e403b69cb53866a1640ead9285dc10191097115a128bd2e"
+content-hash = "9105e0a3265b8d90b1383480654b93b85754f88edb9167f0712850fd0db6729b"
