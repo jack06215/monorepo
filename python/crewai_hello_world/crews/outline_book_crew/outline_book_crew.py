@@ -4,11 +4,14 @@ from crewai.project import CrewBase, agent, task, crew
 from python.crewai_hello_world.model import BookOutline
 from crewai.tools import tool
 
+from python.crewai_hello_world.tools.ddg import MyCustomDuckDuckGoTool
 
 @tool("Hello World Tool")
 def hello_world_tool() -> str:
     """Say hello world tool."""
     return "Tool's result"
+
+duckduckgo_search = MyCustomDuckDuckGoTool()
 
 @CrewBase
 class OutlineCrew:
@@ -22,10 +25,10 @@ class OutlineCrew:
     def researcher(self) -> Agent:
         """Researcher agent"""
         return Agent(
-            role="Researcher",
-            goal="Search for information about the book topic",
+            # role="Researcher",
+            # goal="Search for information about the book topic",
             config=self.agents_config["researcher"],  # type: ignore[index]
-            tools=[hello_world_tool],
+            tools=[duckduckgo_search],
             llm=self.llm,
             verbose=True,
         )
@@ -34,8 +37,8 @@ class OutlineCrew:
     def writer(self) -> Agent:
         """Book outliner agent"""
         return Agent(
-            role="Writer",
-            goal="Writer a book outline",
+            # role="Writer",
+            # goal="Writer a book outline",
             config=self.agents_config["writer"],  # type: ignore[index]
             llm=self.llm,
             verbose=True,
@@ -44,19 +47,19 @@ class OutlineCrew:
     def research_chapter(self) -> Task:
         """Resaerch topic task"""
         return Task(
-            description="",
+            # description="",
             config=self.tasks_config["research_chapter"],  # type: ignore[index]
-            expected_output="A list of research notes about the book topic",
+            # expected_output="A list of research notes about the book topic",
         )
     
     @task
     def write_chapter(self) -> Task:
         """Generate outline task"""
         return Task(
-            description="Generate a book outline based on the research",
+            # description="Generate a book outline based on the research",
             config=self.tasks_config["write_chapter"], # type: ignore[index]
             output_pydantic=BookOutline,
-            expected_output="A book outline with chapters and descriptions",
+            # expected_output="A book outline with chapters and descriptions",
         )
 
     @crew
