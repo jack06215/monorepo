@@ -1,4 +1,3 @@
-import os
 from crewai import Agent, Crew, Task, LLM
 from crewai.project import CrewBase, agent, task, crew
 from python.crewai_hello_world.model import BookOutline
@@ -25,10 +24,8 @@ class OutlineCrew:
     def researcher(self) -> Agent:
         """Researcher agent"""
         return Agent(
-            # role="Researcher",
-            # goal="Search for information about the book topic",
             config=self.agents_config["researcher"],  # type: ignore[index]
-            tools=[duckduckgo_search],
+            tools=[hello_world_tool],
             llm=self.llm,
             verbose=True,
         )
@@ -37,8 +34,6 @@ class OutlineCrew:
     def writer(self) -> Agent:
         """Book outliner agent"""
         return Agent(
-            # role="Writer",
-            # goal="Writer a book outline",
             config=self.agents_config["writer"],  # type: ignore[index]
             llm=self.llm,
             verbose=True,
@@ -47,19 +42,15 @@ class OutlineCrew:
     def research_chapter(self) -> Task:
         """Resaerch topic task"""
         return Task(
-            # description="",
             config=self.tasks_config["research_chapter"],  # type: ignore[index]
-            # expected_output="A list of research notes about the book topic",
         )
     
     @task
     def write_chapter(self) -> Task:
         """Generate outline task"""
         return Task(
-            # description="Generate a book outline based on the research",
             config=self.tasks_config["write_chapter"], # type: ignore[index]
             output_pydantic=BookOutline,
-            # expected_output="A book outline with chapters and descriptions",
         )
 
     @crew
@@ -70,4 +61,5 @@ class OutlineCrew:
             tasks=self.tasks,  # type: ignore
             
         )    
+
 
