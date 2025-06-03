@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 # Load environment variables from a .env file if it exists
 load_dotenv()
 
-llm = LLM(model="openai/gpt-4o-mini")
+llm = LLM(model="ollama/llama3.2", base_url="http://localhost:11434")
 
 
 # ——— 2. Define a HelloTool ———
