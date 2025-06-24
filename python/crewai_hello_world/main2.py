@@ -11,9 +11,7 @@ class BookState(BaseModel):
     title: str = "The Current State of AI in September 2024"
     book: list[Chapter] = []
     book_outline: list[ChapterOutline] = []
-    topic: str = (
-        "Exploring the latest trends in AI across different industries as of September 2024"
-    )
+    topic: str = "Exploring the latest trends in AI across different industries as of September 2024"
     goal: str = """
         The goal of this book is to provide a comprehensive overview of the current state of artificial intelligence in September 2024.
         It will delve into the latest trends impacting various industries, analyze significant advancements,
@@ -31,7 +29,13 @@ class BookFlow(Flow[BookState]):
         output = (
             outline_book_crew.OutlineCrew()
             .crew()
-            .kickoff(inputs={"topic": self.state.topic, "goal": self.state.goal, "totle": self.state.title})
+            .kickoff(
+                inputs={
+                    "topic": self.state.topic,
+                    "goal": self.state.goal,
+                    "totle": self.state.title,
+                }
+            )
         )
 
         chapters = output["chapters"]
@@ -39,6 +43,7 @@ class BookFlow(Flow[BookState]):
 
         self.state.book_outline = chapters
         return chapters
+
 
 def kickoff() -> None:
     flow = BookFlow()
@@ -53,6 +58,6 @@ def plot() -> None:
 def main2() -> None:
     kickoff()
 
+
 if __name__ == "__main__":
     main2()
-
