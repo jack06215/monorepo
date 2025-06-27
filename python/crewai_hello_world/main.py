@@ -1,6 +1,5 @@
 # hello.py
 
-import os
 
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.tools import BaseTool

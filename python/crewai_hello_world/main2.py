@@ -1,8 +1,7 @@
-import asyncio
-from crewai.flow.flow import Flow, listen, start
-from python.crewai_hello_world.crews.outline_book_crew import outline_book_crew
+from crewai.flow.flow import Flow, start
 from pydantic import BaseModel
 
+from python.crewai_hello_world.crews.outline_book_crew import outline_book_crew
 from python.crewai_hello_world.model import Chapter, ChapterOutline
 
 
