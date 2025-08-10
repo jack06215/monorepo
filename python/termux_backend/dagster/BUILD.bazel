@@ -1,0 +1,25 @@
+load("@monorepo_pip//:requirements.bzl", "requirement")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+
+py_library(
+    name = "termux_backend_dagster_lib",
+    srcs = ["main.py"],
+    data = [
+      "data/sample_data.csv",
+    ],
+    deps = [
+      requirement("pydantic"),
+      requirement("pandas"),
+    ],
+)
+
+py_binary(
+    name = "termux_backend_dagster",
+    srcs = glob(
+      ["*.py"]
+    ),
+    main = "main.py",
+    deps = [
+      ":termux_backend_dagster_lib",
+    ],
+)
