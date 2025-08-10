@@ -1,25 +1,38 @@
 load("@monorepo_pip//:requirements.bzl", "requirement")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 
-py_library(
-    name = "termux_backend_dagster_lib",
-    srcs = ["main.py"],
-    data = [
+filegroup(
+    name = "sample_data_csv",
+    srcs = [
       "data/sample_data.csv",
     ],
+)
+
+py_library(
+    name = "workspace_definition",
+    srcs = ["workspace_definition.py"],
     deps = [
-      requirement("pydantic"),
-      requirement("pandas"),
+        requirement("dagster"),
+    ]
+)
+
+py_library(
+    name = "workspace_lib",
+    srcs = ["workspace.py"],
+    data = [":sample_data_csv"],
+    deps = [
+        ":workspace_definition",
+        requirement("pydantic"),
+        requirement("pandas"),
+        requirement("dagster"),
     ],
 )
 
 py_binary(
-    name = "termux_backend_dagster",
-    srcs = glob(
-      ["*.py"]
-    ),
+    name = "dagster_workspace",
+    srcs = ["main.py"],
     main = "main.py",
     deps = [
-      ":termux_backend_dagster_lib",
+      ":workspace_lib",
     ],
 )
