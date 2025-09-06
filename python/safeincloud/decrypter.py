@@ -16,7 +16,6 @@ class Decrypter:
             password.encode("utf-8") if isinstance(password, str) else password
         )
         self.db = Path(db_filename) if isinstance(db_filename, str) else db_filename
-        self.input: BinaryIO | None = None
 
     # ---- binary readers -----------------------------------------------------
     def _read_byte(self, fp: BinaryIO) -> int:
