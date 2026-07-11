@@ -35,19 +35,15 @@ import argparse
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-from python.spreadsheet_llm.data_format_aggregation import (
-    AggregatedRegion,  # reused as a plain container, no aggregation logic invoked
-)
-from python.spreadsheet_llm.inverted_index import (
-    build_inverted_index,
-    render_json_like,
-    render_paper_style,
-)
+from python.spreadsheet_llm.data_format_aggregation import \
+    AggregatedRegion  # reused as a plain container, no aggregation logic invoked
+from python.spreadsheet_llm.inverted_index import (build_inverted_index,
+                                                   render_json_like,
+                                                   render_paper_style)
 from python.spreadsheet_llm.sheet_model import Cell, Sheet, load_xlsx
 from python.spreadsheet_llm.structural_anchors import (
-    extract_structural_anchors,
-    find_row_anchors,
-)
+    extract_structural_anchors, find_row_anchors)
+from python.spreadsheet_llm.xlsx2html.parser import Xlsx2Html
 
 # ---------------------------------------------------------------------------
 # Row sampling: within the Module-1-extracted sheet, detect contiguous table
@@ -371,22 +367,28 @@ def main():
         output_style=args.format,
     )
 
-    print("=" * 70)
-    print(
-        f"Original sheet:        {result.original_rows} rows x {result.original_cols} cols"
-    )
-    print(
-        f"After Module 1 (anchors): {result.after_module1_rows} rows x {result.after_module1_cols} cols"
-    )
-    print(f"After row sampling:     {result.after_sampling_rows} rows")
-    if result.omitted_row_runs:
-        print(f"Sampled-away row runs (original coords): {result.omitted_row_runs}")
-    print(f"Vanilla tokens:    {result.vanilla_tokens}")
-    print(f"Compressed tokens: {result.compressed_tokens}")
-    print(f"Compression ratio: {result.compression_ratio:.2f}x")
-    print("=" * 70)
+    # print("=" * 70)
+    # print(
+    #     f"Original sheet:        {result.original_rows} rows x {result.original_cols} cols"
+    # )
+    # print(
+    #     f"After Module 1 (anchors): {result.after_module1_rows} rows x {result.after_module1_cols} cols"
+    # )
+    # print(f"After row sampling:     {result.after_sampling_rows} rows")
+    # if result.omitted_row_runs:
+    #     print(f"Sampled-away row runs (original coords): {result.omitted_row_runs}")
+    # print(f"Vanilla tokens:    {result.vanilla_tokens}")
+    # print(f"Compressed tokens: {result.compressed_tokens}")
+    # print(f"Compression ratio: {result.compression_ratio:.2f}x")
+    # print("=" * 70)
     print("\n--- LLM-READY CONTEXT ---")
     print(result.compressed_text)
+
+    print("\n--- XLSX2HTML ---")
+    for parsed in Xlsx2Html(filename=args.xlsx_path).parse():
+        if args.sheet is not None and parsed.worksheet_name != args.sheet:
+            continue
+        print(parsed.to_html())
 
 
 if __name__ == "__main__":

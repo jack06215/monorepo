@@ -22,6 +22,7 @@ fine-tuning or table-detection model training itself.
 | `test_sheet_compressor.py` | — | 25 unit tests covering all modules |
 | `test_llm_context_encoder.py` | — | 19 unit tests covering the description-generation variant (row sampling, gap annotation, no-silent-row-loss invariant) |
 | `make_test_xlsx.py` | — | Generates the synthetic fixtures in `sample_data/` (`test_sheet.xlsx`: multi-table, mimics paper's Fig. 2; `big_sheet.xlsx`: 303-row single table that exercises row sampling/gap annotation) |
+| `xlsx2html/` | — | Standalone openpyxl-native Excel → HTML converter that preserves cell metadata (font/fill colors, borders, merged ranges, number formats, hyperlinks, hidden rows/cols) as token-compact HTML with deduplicated CSS classes; images become `[image]` placeholders with base64 kept on the model |
 
 ## Usage
 
