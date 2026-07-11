@@ -35,15 +35,19 @@ import argparse
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-from python.spreadsheet_llm.data_format_aggregation import \
-    AggregatedRegion  # reused as a plain container, no aggregation logic invoked
-from python.spreadsheet_llm.inverted_index import (build_inverted_index,
-                                                   render_json_like,
-                                                   render_paper_style)
+from python.spreadsheet_llm.data_format_aggregation import (
+    AggregatedRegion,  # reused as a plain container, no aggregation logic invoked
+)
+from python.spreadsheet_llm.inverted_index import (
+    build_inverted_index,
+    render_json_like,
+    render_paper_style,
+)
 from python.spreadsheet_llm.sheet_model import Cell, Sheet, load_xlsx
 from python.spreadsheet_llm.structural_anchors import (
-    extract_structural_anchors, find_row_anchors)
-from python.spreadsheet_llm.xlsx2html.parser import Xlsx2Html
+    extract_structural_anchors,
+    find_row_anchors,
+)
 
 # ---------------------------------------------------------------------------
 # Row sampling: within the Module-1-extracted sheet, detect contiguous table
@@ -384,11 +388,11 @@ def main():
     print("\n--- LLM-READY CONTEXT ---")
     print(result.compressed_text)
 
-    print("\n--- XLSX2HTML ---")
-    for parsed in Xlsx2Html(filename=args.xlsx_path).parse():
-        if args.sheet is not None and parsed.worksheet_name != args.sheet:
-            continue
-        print(parsed.to_html())
+    # print("\n--- XLSX2HTML ---")
+    # for parsed in Xlsx2Html(filename=args.xlsx_path).parse():
+    #     if args.sheet is not None and parsed.worksheet_name != args.sheet:
+    #         continue
+    #     print(parsed.to_html())
 
 
 if __name__ == "__main__":
