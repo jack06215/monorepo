@@ -1,9 +1,10 @@
-load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@rules_python//python:py_test.bzl", "py_test")
 
 [
-    py_binary(
+    py_test(
         name = src[:-len(".py")].split("/")[-1],
         srcs = [src],
+        legacy_create_init = False,
         main = src,
     )
     for src in glob(["**/*.py"])

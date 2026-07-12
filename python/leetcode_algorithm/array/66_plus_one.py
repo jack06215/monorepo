@@ -1,3 +1,4 @@
+import unittest
 from typing import List
 
 
@@ -19,14 +20,31 @@ class Solution:
         return [1] + digits
 
 
-def main() -> None:
-    solution = Solution()
-    digits = [4, 3, 2, 1]  # Example input
-    result = solution.plusOne(digits)
+class TestPlusOne(unittest.TestCase):
+    def setUp(self) -> None:
+        self.solution = Solution()
 
-    # Print the result
-    print("".join(str(digit) for digit in result))
+    def test_example_1(self) -> None:
+        self.assertEqual(self.solution.plusOne([1, 2, 3]), [1, 2, 4])
+
+    def test_example_2(self) -> None:
+        self.assertEqual(self.solution.plusOne([4, 3, 2, 1]), [4, 3, 2, 2])
+
+    def test_example_3(self) -> None:
+        self.assertEqual(self.solution.plusOne([9]), [1, 0])
+
+    def test_single_digit_no_carry(self) -> None:
+        self.assertEqual(self.solution.plusOne([0]), [1])
+
+    def test_all_nines_carries_into_new_leading_digit(self) -> None:
+        self.assertEqual(self.solution.plusOne([9, 9, 9]), [1, 0, 0, 0])
+
+    def test_trailing_nines_carry_partway(self) -> None:
+        self.assertEqual(self.solution.plusOne([1, 9, 9]), [2, 0, 0])
+
+    def test_no_carry_needed(self) -> None:
+        self.assertEqual(self.solution.plusOne([1, 2, 3, 4]), [1, 2, 3, 5])
 
 
 if __name__ == "__main__":
-    main()
+    unittest.main()
