@@ -1871,6 +1871,10 @@
             "https://files.pythonhosted.org/packages/48/ce/13508a1ec3f8bb981ae4ca79ea40384becc868bfae97fd1c942bb3a001b1/email_validator-2.2.0.tar.gz": "cb690f344c617a714f22e66ae771445a1ceb46821152df8e165c5f9a364582b7",
             "https://files.pythonhosted.org/packages/d7/ee/bf0adb559ad3c786f12bcbc9296b3f5675f529199bef03e2df281fa1fadb/email_validator-2.2.0-py3-none-any.whl": "561977c2d73ce3611850a06fa56b414621e0c8faa9d66f2611407d87465da631"
           },
+          "et-xmlfile": {
+            "https://files.pythonhosted.org/packages/c1/8b/5fe2cc11fee489817272089c4203e679c63b570a5aaeb18d852ae3cbba6a/et_xmlfile-2.0.0-py3-none-any.whl": "7a91720bc756843502c3b7504c77b8fe44217c85c537d85037f0f536151b2caa",
+            "https://files.pythonhosted.org/packages/d3/38/af70d7ab1ae9d4da450eeec1fa3918940a5fafb9055e934af8d6eb0c2313/et_xmlfile-2.0.0.tar.gz": "dab3f4764309081ce75662649be815c4c9081e88f0837825f90fd28317d4da54"
+          },
           "executing": {
             "https://files.pythonhosted.org/packages/7b/8f/c4d9bafc34ad7ad5d8dc16dd1347ee0e507a52c3adb6bfa8887e1c6a26ba/executing-2.2.0-py2.py3-none-any.whl": "11387150cad388d62750327a53d3339fad4888b39a6fe233c3afbb54ecffd3aa",
             "https://files.pythonhosted.org/packages/91/50/a9d80c47ff289c611ff12e63f7c5d13942c65d68125160cefd768c73e6e4/executing-2.2.0.tar.gz": "5d108c028108fe2551d1a7b2e8b713341e2cb4fc0aa7dcf966fa4327a5226755"
@@ -3195,6 +3199,10 @@
             "https://files.pythonhosted.org/packages/f3/bd/29c126788da65c1fb2b5fb621b7fed0ed5f9122aa22a0868c5e2c15c6d23/opencv_python-4.11.0.86-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "1b92ae2c8852208817e6776ba1ea0d6b1e0a1b5431e971a2a0ddd2a8cc398202",
             "https://files.pythonhosted.org/packages/fb/d7/1d5941a9dde095468b288d989ff6539dd69cd429dbf1b9e839013d21b6f0/opencv_python-4.11.0.86-cp37-abi3-win32.whl": "810549cb2a4aedaa84ad9a1c92fbfdfc14090e2749cedf2c1589ad8359aa169b"
           },
+          "openpyxl": {
+            "https://files.pythonhosted.org/packages/3d/f9/88d94a75de065ea32619465d2f77b29a0469500e99012523b91cc4141cd1/openpyxl-3.1.5.tar.gz": "cf0e3cf56142039133628b5acffe8ef0c12bc902d2aadd3e0fe5878dc08d1050",
+            "https://files.pythonhosted.org/packages/c0/da/977ded879c29cbd04de313843e76868e6e13408a94ed6b987245dc7c8506/openpyxl-3.1.5-py2.py3-none-any.whl": "5282c12b107bffeef825f4617dc029afaf41d0ea60823bbb665ef3079dc79de2"
+          },
           "orjson": {
             "https://files.pythonhosted.org/packages/00/03/88c236ae307bd0604623204d4a835e15fbf9c75b8535c8f13ef45abd413f/orjson-3.10.16-cp310-cp310-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl": "134f87c76bfae00f2094d85cfab261b289b76d78c6da8a7a3b3c09d362fd1e06",
             "https://files.pythonhosted.org/packages/03/40/d9bdb7c6978d70fc634e29176ef0fb2f69cb10ed3a3d6a2f24b56c520448/orjson-3.10.16-cp39-cp39-musllinux_1_2_aarch64.whl": "7c1e602d028ee285dbd300fb9820b342b937df64d5a3336e1618b354e95a2569",
@@ -3787,42 +3795,48 @@
             "https://files.pythonhosted.org/packages/cd/05/0a34433a064256a578f1783a10da6df098ceaa4a57bbeaa96a6c0352786b/pure_eval-0.2.3.tar.gz": "5f4e983f40564c576c7c8635ae88db5956bb2229d7e9237d03b3c0b0190eaf42"
           },
           "pyarrow": {
-            "https://files.pythonhosted.org/packages/08/4a/668e7fb6bc564e5361097f1f160b2891ca40bcacfe018638e2841073ec3d/pyarrow-16.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "0d32000693deff8dc5df444b032b5985a48592c0697cb6e3071a5d59888714e2",
-            "https://files.pythonhosted.org/packages/10/0f/ccfee8b6260888fe5e08d962af28a4b9115d5d245d4e61f8938a8b69f981/pyarrow-16.1.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "f07fdffe4fd5b15f5ec15c8b64584868d063bc22b86b46c9695624ca3505b7b4",
-            "https://files.pythonhosted.org/packages/1a/f2/67533f116deb6dae7a0ac04681695fe06135912253a115c5ecdc714a32d4/pyarrow-16.1.0.tar.gz": "15fbb22ea96d11f0b5768504a3f961edab25eaf4197c341720c4a387f6c60315",
-            "https://files.pythonhosted.org/packages/1e/e1/068a97b80968f50ad969c11be1a12e0979b282d57afe0a13899399ccfefd/pyarrow-16.1.0-cp38-cp38-win_amd64.whl": "e6b6d3cd35fbb93b70ade1336022cc1147b95ec6af7d36906ca7fe432eb09710",
-            "https://files.pythonhosted.org/packages/25/7b/8da91f8de0b40b760dd748031973b6ac2aa3d4f85c67f45b7e58577ca22e/pyarrow-16.1.0-cp312-cp312-manylinux_2_28_x86_64.whl": "e1369af39587b794873b8a307cc6623a3b1194e69399af0efd05bb202195a5a7",
-            "https://files.pythonhosted.org/packages/28/17/a12aaddb818b7b73d17f3304afc22bce32ccb26723b507cc9c267aa809f3/pyarrow-16.1.0-cp311-cp311-macosx_10_15_x86_64.whl": "d0ebea336b535b37eee9eee31761813086d33ed06de9ab6fc6aaa0bace7b250c",
-            "https://files.pythonhosted.org/packages/28/5e/89746311740c0bfcfc8fe4e6cb51e5d78d3145b3d86eeba17e750adc2782/pyarrow-16.1.0-cp38-cp38-manylinux_2_28_aarch64.whl": "19741c4dbbbc986d38856ee7ddfdd6a00fc3b0fc2d928795b95410d38bb97d15",
-            "https://files.pythonhosted.org/packages/47/62/b446ee0971b00e7437b9c54a8409ae20413235a64c0a301d7cf97070cffa/pyarrow-16.1.0-cp311-cp311-manylinux_2_28_aarch64.whl": "25233642583bf658f629eb230b9bb79d9af4d9f9229890b3c878699c82f7d11e",
-            "https://files.pythonhosted.org/packages/48/16/23218e1e965123e70defb1c9603305ef4616e9f1bfbcd735280f36ec28d3/pyarrow-16.1.0-cp310-cp310-win_amd64.whl": "9cf389d444b0f41d9fe1444b70650fea31e9d52cfcb5f818b7888b91b586efff",
-            "https://files.pythonhosted.org/packages/49/4d/62a09116ec357ade462fac4086e0711457a87177bea25ae46b25897d6d7c/pyarrow-16.1.0-cp311-cp311-win_amd64.whl": "185d121b50836379fe012753cf15c4ba9638bda9645183ab36246923875f8d1b",
-            "https://files.pythonhosted.org/packages/4a/0e/ca72b2e27d8d7a23e9866c819436ebeb518f934ac2b8b871fab373f9c859/pyarrow-16.1.0-cp39-cp39-manylinux_2_28_x86_64.whl": "ba8ac20693c0bb0bf4b238751d4409e62852004a8cf031c73b0e0962b03e45e3",
-            "https://files.pythonhosted.org/packages/56/5e/3cd956aceb1c960e8ac6fdc6eea69d642aa2e6ee10e2f10ce7815dbf62a9/pyarrow-16.1.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "b04707f1979815f5e49824ce52d1dceb46e2f12909a48a6a753fe7cafbc44a0c",
-            "https://files.pythonhosted.org/packages/5e/1b/d59f6ee8f55a233b85299d0b93fb24ac487571849f8ca93807dcd182d614/pyarrow-16.1.0-cp39-cp39-win_amd64.whl": "31a1851751433d89a986616015841977e0a188662fcffd1a5677453f1df2de0a",
-            "https://files.pythonhosted.org/packages/63/62/f3346d26d0c1706e19e05155c3159689095519fe67065f52b325f0a26215/pyarrow-16.1.0-cp38-cp38-macosx_10_15_x86_64.whl": "b5f5705ab977947a43ac83b52ade3b881eb6e95fcc02d76f501d549a210ba77f",
-            "https://files.pythonhosted.org/packages/6b/5b/7b1c11872ddd2fd0ca472d0beaf2a3aa2e6cc168a933985e79498d79b71d/pyarrow-16.1.0-cp39-cp39-macosx_10_15_x86_64.whl": "18da9b76a36a954665ccca8aa6bd9f46c1145f79c0bb8f4f244f5f8e799bca55",
-            "https://files.pythonhosted.org/packages/6e/e8/ae66b4aa457143329e5677149afe552e3e0d1062582ef688b9cce444e7c7/pyarrow-16.1.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "fbef391b63f708e103df99fbaa3acf9f671d77a183a07546ba2f2c297b361e83",
-            "https://files.pythonhosted.org/packages/7e/34/d5b6eb5066553533dd6eb9782d50f353f8c6451ee2e49e0ea54d0e67bc34/pyarrow-16.1.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "bf9251264247ecfe93e5f5a0cd43b8ae834f1e61d1abca22da55b20c788417f6",
-            "https://files.pythonhosted.org/packages/84/bd/d5903125e38c33b74f7b3d57ffffd4ef48145208cfd8742367f12effb59c/pyarrow-16.1.0-cp312-cp312-macosx_10_15_x86_64.whl": "2e51ca1d6ed7f2e9d5c3c83decf27b0d17bb207a7dea986e8dc3e24f80ff7d6f",
-            "https://files.pythonhosted.org/packages/87/60/cc0645eb4ef73f88847e40a7f9d238bae6b7409d6c1f6a5d200d8ade1f09/pyarrow-16.1.0-cp39-cp39-manylinux_2_28_aarch64.whl": "3b20bd67c94b3a2ea0a749d2a5712fc845a69cb5d52e78e6449bbd295611f3aa",
-            "https://files.pythonhosted.org/packages/8d/4b/82f67b58a4e0ac4ebaa0e04d7a17b59ed4fbd63094f62893160f606350a0/pyarrow-16.1.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "98100e0268d04e0eec47b73f20b39c45b4006f3c4233719c3848aa27a03c1aef",
-            "https://files.pythonhosted.org/packages/91/83/57572c088ec185582f04b607d545a4a6ef7599c0a3c1e60d397743b0d609/pyarrow-16.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "f68f409e7b283c085f2da014f9ef81e885d90dcd733bd648cfba3ef265961848",
-            "https://files.pythonhosted.org/packages/95/96/3fc14bb56d118a1ac2284c3066281339fd86ab83d28f493e5c8f983f7614/pyarrow-16.1.0-cp38-cp38-manylinux_2_28_x86_64.whl": "f2c5fb249caa17b94e2b9278b36a05ce03d3180e6da0c4c3b3ce5b2788f30eed",
-            "https://files.pythonhosted.org/packages/9b/73/560ef6bf05f16305502b8e368c771e8f82d774898b37a3fb231f89c13342/pyarrow-16.1.0-cp312-cp312-macosx_11_0_arm64.whl": "06ebccb6f8cb7357de85f60d5da50e83507954af617d7b05f48af1621d331c9a",
-            "https://files.pythonhosted.org/packages/a4/53/3446907cced548d8beaf1be9dfa9d52b7ec38fa44f25d292d7999e6bf509/pyarrow-16.1.0-cp310-cp310-manylinux_2_28_aarch64.whl": "a8914cd176f448e09746037b0c6b3a9d7688cef451ec5735094055116857580c",
-            "https://files.pythonhosted.org/packages/b0/54/eb7fcfc0e1ec6a8404cadd11ac957b3ee4fd0774225cafe3ffe6287861cb/pyarrow-16.1.0-cp310-cp310-manylinux_2_28_x86_64.whl": "48be160782c0556156d91adbdd5a4a7e719f8d407cb46ae3bb4eaee09b3111bd",
-            "https://files.pythonhosted.org/packages/d2/34/4e3c04e7398764e56ef00f8f267f8ebf565808478f5fee850cef4be670c3/pyarrow-16.1.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "ddf5aace92d520d3d2a20031d8b0ec27b4395cab9f74e07cc95edf42a5cc0147",
-            "https://files.pythonhosted.org/packages/d4/bb/3236773fb52dd263b22adf2e6e4637cdb965778b0c06315737468d614b80/pyarrow-16.1.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "0d07de3ee730647a600037bc1d7b7994067ed64d0eba797ac74b2bc77384f4c2",
-            "https://files.pythonhosted.org/packages/dc/5c/4d5c43361ee36b8bca29a3a7afaa9d651aa8d5dc05d87ab507e6b2e4e2f8/pyarrow-16.1.0-cp310-cp310-macosx_11_0_arm64.whl": "4740cc41e2ba5d641071d0ab5e9ef9b5e6e8c7611351a5cb7c1d175eaf43674a",
-            "https://files.pythonhosted.org/packages/df/3e/9cfa78ad9744c77e4f3c183d919de3649505e50663d3715151a094c27769/pyarrow-16.1.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "ddfe389a08ea374972bd4065d5f25d14e36b43ebc22fc75f7b951f24378bf0b5",
-            "https://files.pythonhosted.org/packages/e0/84/8a80b9ed7f595073ee920c2eafaecaeda4b8adffee8dcb88275fce4609d8/pyarrow-16.1.0-cp310-cp310-macosx_10_15_x86_64.whl": "17e23b9a65a70cc733d8b738baa6ad3722298fa0c81d88f63ff94bf25eaa77b9",
-            "https://files.pythonhosted.org/packages/e3/12/635c509b84c50cd92fa35a2dee8bc9c1f6fc042da86276ca726f24c5d87f/pyarrow-16.1.0-cp39-cp39-macosx_11_0_arm64.whl": "99f7549779b6e434467d2aa43ab2b7224dd9e41bdde486020bae198978c9e05e",
-            "https://files.pythonhosted.org/packages/eb/f3/5413ac69a1c3443bc397e1adab09db69b8ddd2468e1505241aa3d10baf47/pyarrow-16.1.0-cp38-cp38-macosx_11_0_arm64.whl": "0d27bf89dfc2576f6206e9cd6cf7a107c9c06dc13d53bbc25b0bd4556f19cf5f",
-            "https://files.pythonhosted.org/packages/f3/94/4e2a579bbac1adb19e63b054b300f6f7fa04f32f212ce86c18727bdda698/pyarrow-16.1.0-cp311-cp311-macosx_11_0_arm64.whl": "2e73cfc4a99e796727919c5541c65bb88b973377501e39b9842ea71401ca6c1c",
-            "https://files.pythonhosted.org/packages/f7/8f/a51a290a855172514b8496c8a74f0e0b98e5e0582d44ae7547cf68dd033b/pyarrow-16.1.0-cp312-cp312-manylinux_2_28_aarch64.whl": "8785bb10d5d6fd5e15d718ee1d1f914fe768bf8b4d1e5e9bf253de8a26cb1628",
-            "https://files.pythonhosted.org/packages/fa/15/48a68b30542a0231a75c26d8661bc5c9bbc07b42c5b219e929adba814ba7/pyarrow-16.1.0-cp311-cp311-manylinux_2_28_x86_64.whl": "a33a64576fddfbec0a44112eaf844c20853647ca833e9a647bfae0582b2ff94b",
-            "https://files.pythonhosted.org/packages/fa/2b/a0053f1304586f2976cb2c37ddb0e52cf4114220e805ebba272a1e231ccc/pyarrow-16.1.0-cp312-cp312-win_amd64.whl": "febde33305f1498f6df85e8020bca496d0e9ebf2093bab9e0f65e2b4ae2b3444"
+            "https://files.pythonhosted.org/packages/0c/95/e855880614c8da20f4cd74fa85d7268c725cf0013dc754048593a38896a0/pyarrow-18.1.0-cp313-cp313-manylinux_2_28_aarch64.whl": "f96bd502cb11abb08efea6dab09c003305161cb6c9eafd432e35e76e7fa9b90c",
+            "https://files.pythonhosted.org/packages/14/a7/bd08b6f1a2bd2e71dc6bb0451fc1872607e44c83daf1ee63c82764a2d233/pyarrow-18.1.0-cp39-cp39-macosx_12_0_x86_64.whl": "2c4dd0c9010a25ba03e198fe743b1cc03cd33c08190afff371749c52ccbbaf76",
+            "https://files.pythonhosted.org/packages/1a/bb/8d4a1573f66e0684f190dd2b55fd0b97a7214de8882d58a3867e777bf640/pyarrow-18.1.0-cp310-cp310-macosx_12_0_arm64.whl": "e21488d5cfd3d8b500b3238a6c4b075efabc18f0f6d80b29239737ebd69caa6c",
+            "https://files.pythonhosted.org/packages/1d/d6/5d704b0d25c3c79532f8c0639f253ec2803b897100f64bcb3f53ced236e5/pyarrow-18.1.0-cp313-cp313t-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "d6cf5c05f3cee251d80e98726b5c7cc9f21bab9e9783673bac58e6dfab57ecc8",
+            "https://files.pythonhosted.org/packages/2a/38/d6435c723ff73df8ae74626ea778262fbcc2b9b0d1a4f3db915b61711b05/pyarrow-18.1.0-cp310-cp310-win_amd64.whl": "9736ba3c85129d72aefa21b4f3bd715bc4190fe4426715abfff90481e7d00812",
+            "https://files.pythonhosted.org/packages/2f/58/8912a2563e6b8273e8aa7b605a345bba5a06204549826f6493065575ebc0/pyarrow-18.1.0-cp313-cp313-win_amd64.whl": "25dbacab8c5952df0ca6ca0af28f50d45bd31c1ff6fcf79e2d120b4a65ee7181",
+            "https://files.pythonhosted.org/packages/30/90/893acfad917533b624a97b9e498c0e8393908508a0a72d624fe935e632bf/pyarrow-18.1.0-cp310-cp310-macosx_12_0_x86_64.whl": "b516dad76f258a702f7ca0250885fc93d1fa5ac13ad51258e39d402bd9e2e1e4",
+            "https://files.pythonhosted.org/packages/37/29/366bc7e588220d74ec00e497ac6710c2833c9176f0372fe0286929b2d64c/pyarrow-18.1.0-cp313-cp313t-manylinux_2_28_aarch64.whl": "11b676cd410cf162d3f6a70b43fb9e1e40affbc542a1e9ed3681895f2962d3d9",
+            "https://files.pythonhosted.org/packages/3a/2e/3b99f8a3d9e0ccae0e961978a0d0089b25fb46ebbcfb5ebae3cca179a5b3/pyarrow-18.1.0-cp312-cp312-manylinux_2_28_x86_64.whl": "c52f81aa6f6575058d8e2c782bf79d4f9fdc89887f16825ec3a66607a5dd8e30",
+            "https://files.pythonhosted.org/packages/3b/8c/4c3ed19026a00740b81fe1c87f3ff235b2763a0a1ddf5711a9d026b775ce/pyarrow-18.1.0-cp39-cp39-manylinux_2_28_x86_64.whl": "73eeed32e724ea3568bb06161cad5fa7751e45bc2228e33dcb10c614044165c7",
+            "https://files.pythonhosted.org/packages/3c/c7/ed6adb46d93a3177540e228b5ca30d99fc8ea3b13bdb88b6f8b6467e2cb7/pyarrow-18.1.0-cp313-cp313-macosx_12_0_x86_64.whl": "f591704ac05dfd0477bb8f8e0bd4b5dc52c1cadf50503858dce3a15db6e46ff2",
+            "https://files.pythonhosted.org/packages/41/d7/ed85001edfb96200ff606943cff71d64f91926ab42828676c0fc0db98963/pyarrow-18.1.0-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "acb7564204d3c40babf93a05624fc6a8ec1ab1def295c363afc40b0c9e66c191",
+            "https://files.pythonhosted.org/packages/4d/a3/817ac7fe0891a2d66e247e223080f3a6a262d8aefd77e11e8c27e6acf4e1/pyarrow-18.1.0-cp311-cp311-win_amd64.whl": "d4f13eee18433f99adefaeb7e01d83b59f73360c231d4782d9ddfaf1c3fbde0a",
+            "https://files.pythonhosted.org/packages/54/9d/f253554b1457d4fdb3831b7bd5f8f00f1795585a606eabf6fec0a58a9c38/pyarrow-18.1.0-cp313-cp313-manylinux_2_28_x86_64.whl": "36ac22d7782554754a3b50201b607d553a8d71b78cdf03b33c1125be4b52397c",
+            "https://files.pythonhosted.org/packages/59/03/3a42c5c1e4bd4c900ab62aa1ff6b472bdb159ba8f1c3e5deadab7222244f/pyarrow-18.1.0-cp311-cp311-macosx_12_0_x86_64.whl": "3b2e2239339c538f3464308fd345113f886ad031ef8266c6f004d49769bb074c",
+            "https://files.pythonhosted.org/packages/59/16/35e28eab126342fa391593415d79477e89582de411bb95232f28b131a769/pyarrow-18.1.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "74de649d1d2ccb778f7c3afff6085bd5092aed4c23df9feeb45dd6b16f3811aa",
+            "https://files.pythonhosted.org/packages/5e/b5/9e14e9f7590e0eaa435ecea84dabb137284a4dbba7b3c337b58b65b76d95/pyarrow-18.1.0-cp311-cp311-manylinux_2_28_x86_64.whl": "f266a2c0fc31995a06ebd30bcfdb7f615d7278035ec5b1cd71c48d56daaf30b0",
+            "https://files.pythonhosted.org/packages/5e/e3/3b16c3190f3d71d3b10f6758d2d5f7779ef008c4fd367cedab3ed178a9f7/pyarrow-18.1.0-cp313-cp313t-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "aebc13a11ed3032d8dd6e7171eb6e86d40d67a5639d96c35142bd568b9299324",
+            "https://files.pythonhosted.org/packages/64/a9/06d79923890682e4fe7a16524abee307407008a413115354aaf3226b8410/pyarrow-18.1.0-cp39-cp39-manylinux_2_28_aarch64.whl": "05a5636ec3eb5cc2a36c6edb534a38ef57b2ab127292a716d00eabb887835f1e",
+            "https://files.pythonhosted.org/packages/68/f9/29fb659b390312a7345aeb858a9d9c157552a8852522f2c8bad437c29c0a/pyarrow-18.1.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "543ad8459bc438efc46d29a759e1079436290bd583141384c6f7a1068ed6f992",
+            "https://files.pythonhosted.org/packages/6a/50/12829e7111b932581e51dda51d5cb39207a056c30fe31ef43f14c63c4d7e/pyarrow-18.1.0-cp312-cp312-macosx_12_0_arm64.whl": "9f3a76670b263dc41d0ae877f09124ab96ce10e4e48f3e3e4257273cee61ad0d",
+            "https://files.pythonhosted.org/packages/6d/84/8037c20005ccc7b869726465be0957bd9c29cfc88612962030f08292ad06/pyarrow-18.1.0-cp310-cp310-manylinux_2_28_x86_64.whl": "3c35813c11a059056a22a3bef520461310f2f7eea5c8a11ef9de7062a23f8d56",
+            "https://files.pythonhosted.org/packages/6e/f6/19360dae44200e35753c5c2889dc478154cd78e61b1f738514c9f131734d/pyarrow-18.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "0743e503c55be0fdb5c08e7d44853da27f19dc854531c0570f9f394ec9671d54",
+            "https://files.pythonhosted.org/packages/75/7e/332055ac913373e89256dce9d14b7708f55f7bd5be631456c897f0237738/pyarrow-18.1.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "f39a2e0ed32a0970e4e46c262753417a60c43a3246972cfc2d3eb85aedd01b21",
+            "https://files.pythonhosted.org/packages/76/52/f8da04195000099d394012b8d42c503d7041b79f778d854f410e5f05049a/pyarrow-18.1.0-cp312-cp312-win_amd64.whl": "0ad4892617e1a6c7a551cfc827e072a633eaff758fa09f21c4ee548c30bcaf99",
+            "https://files.pythonhosted.org/packages/7f/7b/640785a9062bb00314caa8a387abce547d2a420cf09bd6c715fe659ccffb/pyarrow-18.1.0.tar.gz": "9386d3ca9c145b5539a1cfc75df07757dff870168c959b473a0bccbc3abc8c73",
+            "https://files.pythonhosted.org/packages/82/f9/d06ddc06cab1ada0c2f2fd205ac8c25c2701182de1b9c4bf7a0a44844431/pyarrow-18.1.0-cp313-cp313t-macosx_12_0_arm64.whl": "6a276190309aba7bc9d5bd2933230458b3521a4317acfefe69a354f2fe59f2bc",
+            "https://files.pythonhosted.org/packages/83/88/1938d783727db1b178ff71bc6a6143d7939e406db83a9ec23cad3dad325c/pyarrow-18.1.0-cp311-cp311-manylinux_2_28_aarch64.whl": "01c034b576ce0eef554f7c3d8c341714954be9b3f5d5bc7117006b85fcf302fe",
+            "https://files.pythonhosted.org/packages/84/c9/62ef9c6281c0e5b4ee1afa9d7bd556e72e06da6706b7906c32c15e69b3d6/pyarrow-18.1.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "4f97b31b4c4e21ff58c6f330235ff893cc81e23da081b1a4b1c982075e0ed4e9",
+            "https://files.pythonhosted.org/packages/87/d8/94161a7ca5c55199484e926165e9e33f318ea1d1b0d7cdbcbc3652b933ec/pyarrow-18.1.0-cp39-cp39-win_amd64.whl": "a1880dd6772b685e803011a6b43a230c23b566859a6e0c9a276c1e0faf4f4052",
+            "https://files.pythonhosted.org/packages/8a/77/4b3fab91a30e19e233e738d0c5eca5a8f6dd05758bc349a2ca262c65de79/pyarrow-18.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "c0a03da7f2758645d17b7b4f83c8bffeae5bbb7f974523fe901f36288d2eab71",
+            "https://files.pythonhosted.org/packages/8c/64/5099cdb325828722ef7ffeba9a4696f238eb0cdeae227f831c2d77fcf1bd/pyarrow-18.1.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "e31e9417ba9c42627574bdbfeada7217ad8a4cbbe45b9d6bdd4b62abbca4c6f6",
+            "https://files.pythonhosted.org/packages/9e/4d/a4988e7d82f4fbc797715db4185939a658eeffb07a25bab7262bed1ea076/pyarrow-18.1.0-cp311-cp311-macosx_12_0_arm64.whl": "eaeabf638408de2772ce3d7793b2668d4bb93807deed1725413b70e3156a7854",
+            "https://files.pythonhosted.org/packages/a3/2a/526545a7464b5fb2fa6e2c4bad16ca90e59e1843025c534fd907b7f73e5a/pyarrow-18.1.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "4f443122c8e31f4c9199cb23dca29ab9427cef990f283f80fe15b8e124bcc49b",
+            "https://files.pythonhosted.org/packages/aa/e2/a88e16c5e45e562449c52305bd3bc2f9d704295322d3434656e7ccac1444/pyarrow-18.1.0-cp310-cp310-manylinux_2_28_aarch64.whl": "ba17845efe3aa358ec266cf9cc2800fa73038211fb27968bfa88acd09261a470",
+            "https://files.pythonhosted.org/packages/ab/94/8917e3b961810587ecbdaa417f8ebac0abb25105ae667b7aa11c05876976/pyarrow-18.1.0-cp313-cp313t-macosx_12_0_x86_64.whl": "ad514dbfcffe30124ce655d72771ae070f30bf850b48bc4d9d3b25993ee0e386",
+            "https://files.pythonhosted.org/packages/b2/99/a6e89e71655a38475e76b060777c8bf69c078b772bec3b7daf7361440f05/pyarrow-18.1.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "4a4813cb8ecf1809871fd2d64a8eff740a1bd3691bbe55f01a3cf6c5ec869754",
+            "https://files.pythonhosted.org/packages/bb/e6/9b3afbbcf10cc724312e824af94a2e993d8ace22994d823f5c35324cebf5/pyarrow-18.1.0-cp312-cp312-manylinux_2_28_aarch64.whl": "d4b3d2a34780645bed6414e22dda55a92e0fcd1b8a637fba86800ad737057e33",
+            "https://files.pythonhosted.org/packages/c8/11/fabf6ecabb1fe5b7d96889228ca2a9158c4c3bb732e3b8ee3f7f6d40b703/pyarrow-18.1.0-cp313-cp313t-manylinux_2_28_x86_64.whl": "b76130d835261b38f14fc41fdfb39ad8d672afb84c447126b84d5472244cfaba",
+            "https://files.pythonhosted.org/packages/cb/87/aa4d249732edef6ad88899399047d7e49311a55749d3c373007d034ee471/pyarrow-18.1.0-cp313-cp313-macosx_12_0_arm64.whl": "84e314d22231357d473eabec709d0ba285fa706a72377f9cc8e1cb3c8013813b",
+            "https://files.pythonhosted.org/packages/d1/41/468c944eab157702e96abab3d07b48b8424927d4933541ab43788bb6964d/pyarrow-18.1.0-cp312-cp312-macosx_12_0_x86_64.whl": "da31fbca07c435be88a0c321402c4e31a2ba61593ec7473630769de8346b54ee",
+            "https://files.pythonhosted.org/packages/fd/9b/60516e3876ec6f25b0909afa70f90a15de83b48c7c0d8042fac4e64c4411/pyarrow-18.1.0-cp39-cp39-macosx_12_0_arm64.whl": "0b331e477e40f07238adc7ba7469c36b908f07c89b95dd4bd3a0ec84a3d1e21e"
           },
           "pyasn1": {
             "https://files.pythonhosted.org/packages/ba/e9/01f1a64245b89f039897cb0130016d79f77d52669aae6ee7b159a6c4c018/pyasn1-0.6.1.tar.gz": "6f580d2bdd84365380830acf45550f2511469f673cb4a5ae3857a3170128b034",
@@ -4448,8 +4462,8 @@
             "https://files.pythonhosted.org/packages/fd/3a/aec9b02217bb79b87bbc1a21bc6abc51e3d5dcf65c30487ac96c0908c722/Send2Trash-1.8.3.tar.gz": "b18e7a3966d99871aefeb00cfbcfdced55ce4871194810fc71f4aa484b953abf"
           },
           "setuptools": {
-            "https://files.pythonhosted.org/packages/51/6c/a3f892949418b5b9aced7396919c75ffb57e38f08b712b565f5eb10677ee/setuptools-80.3.0.tar.gz": "ec8308eb180b2312062b1c5523204acf872cd8b0a9e6c2ae76431b22bc4065d7",
-            "https://files.pythonhosted.org/packages/e6/61/a6239ff35d64e55def020335626894895847cc6659c0f8e1b676c58aad3b/setuptools-80.3.0-py3-none-any.whl": "a65cffc4fb86167e3020b3ef58e08226baad8b29a3b34ce2c9d07e901bac481d"
+            "https://files.pythonhosted.org/packages/34/26/f5d29e25ffdb535afef2d35cdb55b325298f96debd670da4c325e08d70f4/setuptools-83.0.0.tar.gz": "025bccbbf0fa05b6192bc64ae1e7b16e001fd6d6d4d5de03c97b1c1ade523bef",
+            "https://files.pythonhosted.org/packages/5d/40/e1e72872c6354b306daef1703549e8e83b4d43cfea356311bf722a043752/setuptools-83.0.0-py3-none-any.whl": "29b23c360f22f414dc7336bb39178cc7bcbf6021ed2733cde173f09dba19abb3"
           },
           "shellingham": {
             "https://files.pythonhosted.org/packages/58/15/8b3609fd3830ef7b27b655beb4b4e9c62313a4e8da8c676e142cc210d58e/shellingham-1.5.4.tar.gz": "8dbca0739d487e5bd35ab3ca4b36e11c4078f3a234bfce294b0a0291363404de",
@@ -5603,10 +5617,6 @@
             "f24d2b1f2516953b001736f82be7cf5d3234fc90e82a2d9a33ad8cdffb28f4c5": "Regression https://github.com/aio-libs/aiohttp/issues/10763",
             "f29e0f47656b826d74034b612c11709842c20ebe373e398812208b84ec57f79a": "Regression https://github.com/aio-libs/aiohttp/issues/10763",
             "fd89c4399ca67c0d2939211ecf8415747f4e2d855580f1efd9598eff433499ac": "Regression https://github.com/aio-libs/aiohttp/issues/10763"
-          },
-          "setuptools": {
-            "a65cffc4fb86167e3020b3ef58e08226baad8b29a3b34ce2c9d07e901bac481d": "https://github.com/pypa/setuptools/issues/4976",
-            "ec8308eb180b2312062b1c5523204acf872cd8b0a9e6c2ae76431b22bc4065d7": "https://github.com/pypa/setuptools/issues/4976"
           }
         }
       },

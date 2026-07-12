@@ -5,8 +5,11 @@ cc_library(
     srcs = ["prettyprint.h"],
 )
 
-cc_binary(
-    name = "66_plus_one",
-    srcs = ["array/66_plus_one.cpp"],
-    deps = [":prettyprint"],
-)
+[
+    cc_binary(
+        name = src[:-len(".cpp")].split("/")[-1],
+        srcs = [src],
+        deps = [":prettyprint"],
+    )
+    for src in glob(["**/*.cpp"])
+]
