@@ -1,7 +1,7 @@
-#include <iostream>
 #include <vector>
 
-#include "../prettyprint.h"
+#define CATCH_CONFIG_MAIN
+#include "../catch.hpp"
 
 class Solution {
  public:
@@ -28,16 +28,52 @@ class Solution {
   }
 };
 
-int main() {
+TEST_CASE("plusOne handles the LeetCode examples", "[plusOne]") {
   Solution solution;
-  std::vector<int> digits = {4, 3, 2, 1};  // Example input
-  std::vector<int> result = solution.plusOne(digits);
 
-  // Print the result
-  for (int digit : result) {
-    std::cout << digit;
+  SECTION("example 1") {
+    std::vector<int> digits = {1, 2, 3};
+    std::vector<int> expected = {1, 2, 4};
+    REQUIRE(solution.plusOne(digits) == expected);
   }
-  std::cout << std::endl;
 
-  return 0;
+  SECTION("example 2") {
+    std::vector<int> digits = {4, 3, 2, 1};
+    std::vector<int> expected = {4, 3, 2, 2};
+    REQUIRE(solution.plusOne(digits) == expected);
+  }
+
+  SECTION("example 3") {
+    std::vector<int> digits = {9};
+    std::vector<int> expected = {1, 0};
+    REQUIRE(solution.plusOne(digits) == expected);
+  }
+}
+
+TEST_CASE("plusOne handles edge cases", "[plusOne]") {
+  Solution solution;
+
+  SECTION("single digit no carry") {
+    std::vector<int> digits = {0};
+    std::vector<int> expected = {1};
+    REQUIRE(solution.plusOne(digits) == expected);
+  }
+
+  SECTION("all nines carries into a new leading digit") {
+    std::vector<int> digits = {9, 9, 9};
+    std::vector<int> expected = {1, 0, 0, 0};
+    REQUIRE(solution.plusOne(digits) == expected);
+  }
+
+  SECTION("trailing nines carry partway") {
+    std::vector<int> digits = {1, 9, 9};
+    std::vector<int> expected = {2, 0, 0};
+    REQUIRE(solution.plusOne(digits) == expected);
+  }
+
+  SECTION("no carry needed") {
+    std::vector<int> digits = {1, 2, 3, 4};
+    std::vector<int> expected = {1, 2, 3, 5};
+    REQUIRE(solution.plusOne(digits) == expected);
+  }
 }

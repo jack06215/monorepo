@@ -1,15 +1,29 @@
-load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
 
 cc_library(
     name = "prettyprint",
-    srcs = ["prettyprint.h"],
+    srcs = ["prettyprint.hpp"],
+)
+
+cc_library(
+    name = "catch",
+    srcs = ["catch.hpp"],
+)
+
+cc_library(
+    name = "binarytree",
+    srcs = ["binarytree.hpp"],
 )
 
 [
-    cc_binary(
+    cc_test(
         name = src[:-len(".cpp")].split("/")[-1],
         srcs = [src],
-        deps = [":prettyprint"],
+        deps = [
+            ":binarytree",
+            ":catch",
+            ":prettyprint",
+        ],
     )
     for src in glob(["**/*.cpp"])
 ]
