@@ -5,6 +5,14 @@ exports_files(
     srcs = ["requirements.txt"],
 )
 
+test_suite(
+    name = "leetcode_algorithm_test",
+    tests = [
+        "//cpp/leetcode_algorithm:all_tests",
+        "//python/leetcode_algorithm:all_tests",
+    ],
+)
+
 buildifier(
     name = "buildifier.check",
     exclude_patterns = [

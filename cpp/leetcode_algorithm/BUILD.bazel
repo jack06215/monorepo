@@ -15,6 +15,8 @@ cc_library(
     srcs = ["binarytree.hpp"],
 )
 
+_TEST_SRCS = glob(["**/*.cpp"])
+
 [
     cc_test(
         name = src[:-len(".cpp")].split("/")[-1],
@@ -25,5 +27,10 @@ cc_library(
             ":prettyprint",
         ],
     )
-    for src in glob(["**/*.cpp"])
+    for src in _TEST_SRCS
 ]
+
+test_suite(
+    name = "all_tests",
+    tests = [src[:-len(".cpp")].split("/")[-1] for src in _TEST_SRCS],
+)
