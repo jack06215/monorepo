@@ -102,7 +102,7 @@ def render_paper_style(index: dict) -> str:
     e.g.  (Year|A1)(IntNum|A2:B3)( |C4)
     This is the format actually fed to the LLM in their experiments.
     """
-    parts = []
+    parts = ["[CONTEXT]\n"]
     for val, addrs in index.items():
         addr_str = ",".join(addrs)
         parts.append(f"({val}|{addr_str})")

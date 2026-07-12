@@ -25,15 +25,28 @@ verbatim (headers are always kept in full) and mark the gap explicitly,
 so the LLM sees real example rows from both ends of each table instead of
 type placeholders.
 
+Visual formatting is preserved too: cell fill color, font color, and font
+style (bold/italic/underline/strikethrough, outlier font sizes) are loaded
+from the workbook, carried through extraction/sampling, and emitted as a
+compact [FORMATTING] index (style -> cell ranges) after the value tuples,
+since header bands, color-coded cells, and bold totals carry table
+semantics that values alone lose.
+
 Usage:
     python3 llm_context_encoder.py my_file.xlsx
     python3 llm_context_encoder.py my_file.xlsx --k 4 --sample-rows 5
     python3 llm_context_encoder.py my_file.xlsx --format json
+    python3 llm_context_encoder.py my_file.xlsx --no-gap-notes
+    python3 llm_context_encoder.py my_file.xlsx --no-row-sampling
+    python3 llm_context_encoder.py my_file.xlsx --no-module1
 """
 
 import argparse
-from dataclasses import dataclass
-from typing import List, Optional, Tuple
+from collections import Counter
+from dataclasses import dataclass, replace
+from typing import Dict, List, Optional, Set, Tuple
+
+from openpyxl.utils import get_column_letter
 
 from python.spreadsheet_llm.data_format_aggregation import (
     AggregatedRegion,  # reused as a plain container, no aggregation logic invoked
@@ -43,7 +56,7 @@ from python.spreadsheet_llm.inverted_index import (
     render_json_like,
     render_paper_style,
 )
-from python.spreadsheet_llm.sheet_model import Cell, Sheet, load_xlsx
+from python.spreadsheet_llm.sheet_model import Sheet, load_xlsx
 from python.spreadsheet_llm.structural_anchors import (
     extract_structural_anchors,
     find_row_anchors,
@@ -127,16 +140,7 @@ def apply_row_sampling(sheet: Sheet, sampling: RowSamplingResult) -> Tuple[Sheet
         new_row = []
         for c in range(1, sheet.n_cols + 1):
             src = sheet.get(orig_r, c)
-            new_row.append(
-                Cell(
-                    row=row_map[orig_r],
-                    col=c,
-                    value=src.value,
-                    number_format=src.number_format,
-                    is_merged_anchor=src.is_merged_anchor,
-                    merged_range=src.merged_range,
-                )
-            )
+            new_row.append(replace(src, row=row_map[orig_r]))
         new_grid.append(new_row)
     new_sheet = Sheet(new_grid, len(sampling.kept_rows), sheet.n_cols, name=sheet.name)
     return new_sheet, row_map
@@ -155,9 +159,7 @@ def literal_regions(sheet: Sheet) -> List[AggregatedRegion]:
     for r in range(1, sheet.n_rows + 1):
         for c in range(1, sheet.n_cols + 1):
             cell = sheet.get(r, c)
-            dtype = (
-                "Empty" if cell.is_empty else "String"
-            )  # "String" forces literal rendering in inverted_index
+            dtype = "Empty" if cell.is_empty else "String"
             regions.append(AggregatedRegion(r, c, r, c, dtype))
     return regions
 
@@ -172,10 +174,114 @@ def inject_gap_markers(
     physically removed from the grid (i.e. this annotates at the seam, not
     inside a still-present range).
     """
-    # Not used directly -- gap annotation is instead added as extra text in
-    # the final rendered output (see render_with_gap_annotations) because
-    # inserting synthetic rows would require re-shifting all coordinates.
     pass
+
+
+# ---------------------------------------------------------------------------
+# Formatting index: the inverted-index trick applied to *styles* instead of
+# values. Cells are grouped by their visible formatting (fill color, font
+# color, bold/italic/underline/strike, outlier font size), each group's cells
+# are coalesced into maximal rectangles, and the result renders as compact
+# (style|range) entries. Formatting often carries table semantics (header
+# bands, color-coded status cells, bold totals) that pure values lose.
+# ---------------------------------------------------------------------------
+
+
+def _prevailing_font_size(sheet: Sheet) -> Optional[float]:
+    """
+    The modal font size across non-empty cells. Sizes equal to this are
+    treated as the sheet's default and omitted from style signatures, so only
+    outliers (titles, headers) get a "14pt" annotation.
+    """
+    counts = Counter(
+        sheet.get(r, c).font_size
+        for r in range(1, sheet.n_rows + 1)
+        for c in range(1, sheet.n_cols + 1)
+        if not sheet.get(r, c).is_empty and sheet.get(r, c).font_size
+    )
+    return counts.most_common(1)[0][0] if counts else None
+
+
+def _coalesce_rectangles(
+    coords: Set[Tuple[int, int]],
+) -> List[Tuple[int, int, int, int]]:
+    """
+    Greedily merges a set of (row, col) coordinates into maximal rectangles:
+    per-row horizontal runs first, then runs with an identical column span
+    stacked across consecutive rows. Returns (top, left, bottom, right)
+    tuples sorted by position.
+    """
+    cols_by_row: Dict[int, List[int]] = {}
+    for r, c in coords:
+        cols_by_row.setdefault(r, []).append(c)
+
+    def _runs(cols: List[int]) -> List[Tuple[int, int]]:
+        cols = sorted(cols)
+        out = []
+        start = prev = cols[0]
+        for c in cols[1:]:
+            if c == prev + 1:
+                prev = c
+            else:
+                out.append((start, prev))
+                start = prev = c
+        out.append((start, prev))
+        return out
+
+    rects: List[Tuple[int, int, int, int]] = []
+    open_rects: Dict[Tuple[int, int], Tuple[int, int]] = {}
+    for r in sorted(cols_by_row):
+        next_open: Dict[Tuple[int, int], Tuple[int, int]] = {}
+        for span in _runs(cols_by_row[r]):
+            prev_rect = open_rects.get(span)
+            if prev_rect is not None and prev_rect[1] == r - 1:
+                next_open[span] = (prev_rect[0], r)
+            else:
+                next_open[span] = (r, r)
+        for span, (top, last) in open_rects.items():
+            if span not in next_open or next_open[span][0] != top:
+                rects.append((top, span[0], last, span[1]))
+        open_rects = next_open
+    for span, (top, last) in open_rects.items():
+        rects.append((top, span[0], last, span[1]))
+    return sorted(rects)
+
+
+def _rect_addr(top: int, left: int, bottom: int, right: int) -> str:
+    a = f"{get_column_letter(left)}{top}"
+    if (top, left) == (bottom, right):
+        return a
+    return f"{a}:{get_column_letter(right)}{bottom}"
+
+
+def build_style_index(
+    sheet: Sheet, base_font_size: Optional[float] = None
+) -> Dict[str, List[str]]:
+    """
+    Builds {style_signature: [address_or_range, ...]} over every visibly
+    styled cell, preserving first-seen order. Empty cells only count when
+    they carry a fill (font styling on an empty cell is invisible); cells
+    with fully default formatting are skipped, so a plain sheet yields {}.
+    """
+    groups: Dict[str, Set[Tuple[int, int]]] = {}
+    order: List[str] = []
+    for r in range(1, sheet.n_rows + 1):
+        for c in range(1, sheet.n_cols + 1):
+            cell = sheet.get(r, c)
+            if cell.is_empty:
+                sig = f"fill:{cell.fill_color}" if cell.fill_color else None
+            else:
+                sig = cell.style_signature(base_font_size)
+            if not sig:
+                continue
+            if sig not in groups:
+                groups[sig] = set()
+                order.append(sig)
+            groups[sig].add((r, c))
+    return {
+        sig: [_rect_addr(*rect) for rect in _coalesce_rectangles(groups[sig])]
+        for sig in order
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -190,9 +296,7 @@ class LLMContextResult:
     after_module1_rows: int
     after_module1_cols: int
     after_sampling_rows: int
-    omitted_row_runs: List[
-        Tuple[int, int]
-    ]  # in ORIGINAL sheet coordinates, for human reference
+    omitted_row_runs: List[Tuple[int, int]]
     compressed_text: str
     compressed_tokens: int
     vanilla_tokens: int
@@ -224,11 +328,10 @@ def _vanilla_token_estimate(sheet: Sheet) -> int:
 def _find_module1_gaps(kept_rows: List[int]) -> List[Tuple[int, int]]:
     """
     Module 1 (structural-anchor extraction) can itself silently drop a long
-    run of original rows (e.g. a single big table where only the header and
-    the very first/last rows register as "anchors"). This scans the sorted
-    list of ORIGINAL row numbers that Module 1 kept and returns the
-    (start, end) original-row-number gaps between consecutive kept rows, so
-    that loss can be annotated instead of silently disappearing.
+    run of original rows. This scans the sorted list of ORIGINAL row numbers
+    that Module 1 kept and returns the (start, end) original-row-number gaps
+    between consecutive kept rows, so that loss can be annotated instead of
+    silently disappearing.
     """
     gaps = []
     for prev, cur in zip(kept_rows, kept_rows[1:]):
@@ -244,52 +347,59 @@ def build_llm_context(
     sample_rows: int = 5,
     min_run_to_sample: int = 15,
     output_style: str = "paper",
+    include_gap_notes: bool = True,
+    enable_row_sampling: bool = True,
+    enable_module1: bool = True,
 ) -> LLMContextResult:
     """
-    Full Module 1 + row-sampling + Module 2 pipeline, tuned for feeding an
-    LLM that will generate a spreadsheet description (no type-label
-    aggregation -- real values are preserved).
+    Full pipeline, tuned for feeding an LLM that will generate a spreadsheet
+    description. Real values are preserved.
+
+    Flags:
+      - include_gap_notes: whether to append [NOTE: rows ... omitted]
+      - enable_row_sampling: whether to head/tail sample long body runs
+      - enable_module1: whether to run structural-anchor extraction first
     """
     sheet = load_xlsx(path, sheet_name=sheet_name)
     vanilla_tokens = _vanilla_token_estimate(sheet)
 
-    # --- Module 1: structural-anchor extraction ---
-    extraction = extract_structural_anchors(sheet, k=k)
-    extracted_sheet = extraction.sheet
+    if enable_module1:
+        extraction = extract_structural_anchors(sheet, k=k)
+        extracted_sheet = extraction.sheet
+        module1_gaps_original = _find_module1_gaps(extraction.kept_rows)
+        inv_extract_row_map = {v: k_ for k_, v in extraction.row_map.items()}
+    else:
+        extracted_sheet = sheet
+        module1_gaps_original = []
+        inv_extract_row_map = {r: r for r in range(1, sheet.n_rows + 1)}
 
-    # Module 1 itself can drop long runs (e.g. one big table with a boring
-    # middle -- only the header + first/last rows look like "anchors").
-    # Capture those gaps in ORIGINAL row numbers before anything else runs,
-    # so they get annotated even if row-sampling never triggers.
-    module1_gaps_original = _find_module1_gaps(extraction.kept_rows)
-
-    # Recompute anchors IN THE EXTRACTED sheet's own coordinates (the
-    # extracted sheet is now dense/remapped, so we re-run anchor detection
-    # on it rather than translating original-coordinate anchors).
     anchors_in_extracted = find_row_anchors(extracted_sheet)
 
-    # --- Row sampling: thin any remaining long data-body runs ---
-    sampling = sample_long_row_runs(
-        extracted_sheet,
-        anchors_in_extracted,
-        sample_rows=sample_rows,
-        min_run_to_sample=min_run_to_sample,
-    )
-    sampled_sheet, row_map = apply_row_sampling(extracted_sheet, sampling)
+    if enable_row_sampling:
+        sampling = sample_long_row_runs(
+            extracted_sheet,
+            anchors_in_extracted,
+            sample_rows=sample_rows,
+            min_run_to_sample=min_run_to_sample,
+        )
+        sampled_sheet, row_map = apply_row_sampling(extracted_sheet, sampling)
+    else:
+        sampling = RowSamplingResult(
+            kept_rows=list(range(1, extracted_sheet.n_rows + 1)),
+            omitted_runs=[],
+        )
+        sampled_sheet = extracted_sheet
+        row_map = {r: r for r in range(1, extracted_sheet.n_rows + 1)}
 
-    # Translate row-sampling gaps back to ORIGINAL sheet row numbers.
-    inv_extract_row_map = {v: k_ for k_, v in extraction.row_map.items()}
-    omitted_runs_original = list(
-        module1_gaps_original
-    )  # start with Module 1's own gaps
-    for start, end in sampling.omitted_runs:
-        orig_start = inv_extract_row_map.get(start)
-        orig_end = inv_extract_row_map.get(end)
-        if orig_start is not None and orig_end is not None:
-            omitted_runs_original.append((orig_start, orig_end))
+    omitted_runs_original = list(module1_gaps_original)
+    if enable_row_sampling:
+        for start, end in sampling.omitted_runs:
+            orig_start = inv_extract_row_map.get(start)
+            orig_end = inv_extract_row_map.get(end)
+            if orig_start is not None and orig_end is not None:
+                omitted_runs_original.append((orig_start, orig_end))
     omitted_runs_original.sort()
 
-    # --- Module 2: inverted-index translation (literal values, no aggregation) ---
     regions = literal_regions(sampled_sheet)
     index = build_inverted_index(sampled_sheet, regions)
     compressed_text = (
@@ -298,14 +408,23 @@ def build_llm_context(
         else render_json_like(index)
     )
 
-    # Append gap annotations so the LLM knows rows were sampled, not that
-    # the sheet is actually that small.
-    if omitted_runs_original:
+    if include_gap_notes and omitted_runs_original:
         gap_notes = "; ".join(
             f"rows {a}-{b} omitted ({b - a + 1} similar rows not shown)"
             for a, b in omitted_runs_original
         )
         compressed_text += f"\n\n[NOTE: {gap_notes}]"
+
+    style_index = build_style_index(
+        sampled_sheet, base_font_size=_prevailing_font_size(sampled_sheet)
+    )
+    if style_index:
+        rendered_styles = (
+            "".join(f"({sig}|{','.join(addrs)})" for sig, addrs in style_index.items())
+            if output_style == "paper"
+            else render_json_like(style_index)
+        )
+        compressed_text += f"\n\n[FORMATTING]\n{rendered_styles}"
 
     compressed_tokens = _count_tokens(compressed_text)
     ratio = vanilla_tokens / compressed_tokens if compressed_tokens else float("inf")
@@ -355,11 +474,27 @@ def main():
         "--min-run-to-sample",
         type=int,
         default=15,
-        help="A data-body run longer than this (rows) gets head/tail sampled (default: 15)",
+        help="A data-body run longer than this gets head/tail sampled (default: 15)",
     )
     parser.add_argument(
         "--format", choices=["paper", "json"], default="paper", help="Output text style"
     )
+    parser.add_argument(
+        "--no-gap-notes",
+        action="store_true",
+        help="Do not append [NOTE: rows ... omitted] annotations to the output",
+    )
+    parser.add_argument(
+        "--no-row-sampling",
+        action="store_true",
+        help="Keep all rows after Module 1 extraction; do not head/tail sample long data runs",
+    )
+    parser.add_argument(
+        "--no-module1",
+        action="store_true",
+        help="Skip structural-anchor extraction and keep all original rows",
+    )
+
     args = parser.parse_args()
 
     result = build_llm_context(
@@ -369,30 +504,13 @@ def main():
         sample_rows=args.sample_rows,
         min_run_to_sample=args.min_run_to_sample,
         output_style=args.format,
+        include_gap_notes=not args.no_gap_notes,
+        enable_row_sampling=not args.no_row_sampling,
+        enable_module1=not args.no_module1,
     )
 
-    # print("=" * 70)
-    # print(
-    #     f"Original sheet:        {result.original_rows} rows x {result.original_cols} cols"
-    # )
-    # print(
-    #     f"After Module 1 (anchors): {result.after_module1_rows} rows x {result.after_module1_cols} cols"
-    # )
-    # print(f"After row sampling:     {result.after_sampling_rows} rows")
-    # if result.omitted_row_runs:
-    #     print(f"Sampled-away row runs (original coords): {result.omitted_row_runs}")
-    # print(f"Vanilla tokens:    {result.vanilla_tokens}")
-    # print(f"Compressed tokens: {result.compressed_tokens}")
-    # print(f"Compression ratio: {result.compression_ratio:.2f}x")
-    # print("=" * 70)
-    print("\n--- LLM-READY CONTEXT ---")
+    # print("\n--- LLM-READY CONTEXT ---")
     print(result.compressed_text)
-
-    # print("\n--- XLSX2HTML ---")
-    # for parsed in Xlsx2Html(filename=args.xlsx_path).parse():
-    #     if args.sheet is not None and parsed.worksheet_name != args.sheet:
-    #         continue
-    #     print(parsed.to_html())
 
 
 if __name__ == "__main__":

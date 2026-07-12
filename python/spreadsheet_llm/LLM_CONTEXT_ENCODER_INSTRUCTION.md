@@ -2,10 +2,10 @@ You are analyzing an Excel spreadsheet. Your job is to understand its structure 
 
 The input contains one or both of the following representations of the same workbook:
 
-1. **Compressed tuple encoding** (under a `--- LLM-READY CONTEXT ---` marker) — a compact, deduplicated inventory of one worksheet's cell values.
-2. **HTML rendering** (under a `--- XLSX2HTML ---` marker) — a style-preserving HTML table per worksheet, carrying the layout and formatting (colors, bold, borders, merged cells, number formats) that the tuple encoding drops.
+1. **Compressed tuple encoding** (under a `--- LLM-READY CONTEXT ---` marker) — a compact, deduplicated inventory of one worksheet's cell values, plus a `[FORMATTING]` index summarizing cell colors and font styling.
+2. **HTML rendering** (under a `--- XLSX2HTML ---` marker) — a style-preserving HTML table per worksheet, carrying the full layout and formatting detail (borders, alignment, every worksheet, exact grid positions) that the tuple encoding compacts away.
 
-When both are present they describe the same data. Use the tuple encoding as a compact inventory of values, and the HTML for layout, formatting cues, and anything the tuple section sampled away.
+When both are present they describe the same data. Use the tuple encoding as a compact inventory of values and formatting highlights, and the HTML for layout, full formatting detail, and anything the tuple section sampled away.
 
 ## Section 1: compressed tuple encoding
 
@@ -35,6 +35,19 @@ This means: the sheet originally had more rows in that range, following the same
 - You MAY reasonably describe the *pattern* the omitted rows likely follow, based on the shown rows immediately bracketing the gap (e.g. "dates appear to continue sequentially," "same five product names appear to repeat in rotation") — but flag this as an inferred pattern, not a fact.
 - If no `[NOTE: ...]` line is present, the tuple data covers the complete sheet — no rows were omitted.
 
+### Formatting index
+
+After the tuple data (and the `[NOTE: ...]` line, if any) there may be a `[FORMATTING]` block using the same tuple syntax, keyed by style instead of value:
+
+    [FORMATTING]
+    (fill:#4472C4 font:#FFFFFF bold|A1:D1)(fill:#FFC000|D5)(bold|A9,C9)
+
+- Each tuple is `(STYLE|RANGES)`: every cell in RANGES carries exactly the formatting described by STYLE. RANGES uses the same address/range/comma conventions — and the same compacted row numbers — as the value tuples.
+- STYLE is a space-separated list of: `fill:#RRGGBB` (cell background color), `font:#RRGGBB` (text color), `bold`, `italic`, `underline`, `strikethrough`, and `Npt` (font size, only mentioned when it deviates from the sheet's prevailing size — e.g. a `16pt` title on an 11pt sheet). Theme/indexed colors are already resolved to concrete hex values.
+- Only formatting that deviates from a plain default cell (black text, no fill, regular weight) is listed. Cells not covered by any formatting tuple are plainly formatted. Empty cells appear only when they have a fill color.
+- If no `[FORMATTING]` block is present, the sheet has no notable formatting.
+- Read formatting as structure and semantics: a filled+bold band is usually a header row or section title, a bold row near the end of a table is usually a totals row, and fill/font colors that vary per-cell within a data column usually encode a status or category (e.g. red = overdue). Correlate the colored addresses with the values at those addresses in the tuple section.
+
 ## Section 2: HTML rendering
 
 Each worksheet is rendered as one HTML fragment: an optional `<style>` block followed by `<table data-sheet="SheetName">`. The tuple section covers a single worksheet, but the HTML may include every worksheet in the workbook — if there are more tables than tuple-encoded sheets, describe the extra sheets from the HTML alone.
@@ -55,6 +68,6 @@ Write a description of the spreadsheet covering:
 3. **Columns per table** — name each column and briefly describe what kind of data it holds (e.g. "Date: transaction date," "UnitPrice: price in USD"), using `data-nf` number formats as type evidence where available.
 4. **Scale** — total approximate row/record count per table: count rows in the HTML when present, and explicitly account for any omitted rows per the tuple section's NOTE line otherwise.
 5. **Notable content** — specific real examples (actual values you saw), value ranges, or patterns worth mentioning, without fabricating anything from omitted rows.
-6. **Formatting semantics** — when formatting carries meaning, describe it: color-coded cells, bold totals, merged title bands, hidden rows/columns, hyperlinks, comments, or `[image]` placeholders.
+6. **Formatting semantics** — when formatting carries meaning, describe it: color-coded cells, bold totals, merged title bands, hidden rows/columns, hyperlinks, comments, or `[image]` placeholders. Use the `[FORMATTING]` block and/or the HTML styles, whichever is present.
 
 Keep the description factual and grounded only in content you actually saw (tuples and/or HTML cells) plus the omitted-row counts. Do not guess at information not present in the input.

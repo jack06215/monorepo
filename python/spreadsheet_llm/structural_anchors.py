@@ -18,21 +18,27 @@ the same anchor -> k-neighborhood -> extract -> remap pipeline described in
 the paper.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import List, Set, Tuple
 
-from python.spreadsheet_llm.sheet_model import Cell, Sheet
+from python.spreadsheet_llm.sheet_model import Sheet
 
 
 def _row_signature(sheet: Sheet, row: int) -> Tuple:
-    """A coarse fingerprint of a row: which columns are non-empty + their formats."""
+    """A coarse fingerprint of a row: which columns are non-empty + their formats.
+
+    Bold is included so style-only header rows (same "General" format as the
+    body below them) still register as boundaries. Fill/color deliberately
+    are NOT part of the signature: alternating-fill "zebra" body rows would
+    otherwise make every row look like a boundary and defeat extraction.
+    """
     sig = []
     for c in range(1, sheet.n_cols + 1):
         cell = sheet.get(row, c)
         if cell.is_empty:
             sig.append(None)
         else:
-            sig.append(cell.number_format)
+            sig.append((cell.number_format, cell.bold))
     return tuple(sig)
 
 
@@ -43,7 +49,7 @@ def _col_signature(sheet: Sheet, col: int) -> Tuple:
         if cell.is_empty:
             sig.append(None)
         else:
-            sig.append(cell.number_format)
+            sig.append((cell.number_format, cell.bold))
     return tuple(sig)
 
 
@@ -149,16 +155,9 @@ def extract_structural_anchors(sheet: Sheet, k: int = 4) -> ExtractionResult:
         new_row = []
         for orig_c in kept_cols:
             src = sheet.get(orig_r, orig_c)
-            new_row.append(
-                Cell(
-                    row=row_map[orig_r],
-                    col=col_map[orig_c],
-                    value=src.value,
-                    number_format=src.number_format,
-                    is_merged_anchor=src.is_merged_anchor,
-                    merged_range=src.merged_range,
-                )
-            )
+            # replace() keeps every other field (value, formats, styling)
+            # so formatting survives extraction for downstream rendering.
+            new_row.append(replace(src, row=row_map[orig_r], col=col_map[orig_c]))
         new_grid.append(new_row)
 
     new_sheet = Sheet(new_grid, len(kept_rows), len(kept_cols), name=sheet.name)

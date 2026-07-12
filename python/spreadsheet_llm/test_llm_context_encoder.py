@@ -11,13 +11,17 @@ import os
 import unittest
 
 import openpyxl
+from openpyxl.styles import Color, Font, PatternFill
 
-from python.spreadsheet_llm.llm_context_encoder import (_find_module1_gaps,
+from python.spreadsheet_llm.llm_context_encoder import (_coalesce_rectangles,
+                                                        _find_module1_gaps,
                                                         apply_row_sampling,
                                                         build_llm_context,
+                                                        build_style_index,
                                                         literal_regions,
                                                         sample_long_row_runs)
 from python.spreadsheet_llm.sheet_model import Cell, Sheet, load_xlsx
+from python.spreadsheet_llm.structural_anchors import find_row_anchors
 
 TMP_PATH = "/tmp/_llm_ctx_test.xlsx"
 
@@ -264,6 +268,174 @@ class BuildLLMContextTests(unittest.TestCase):
         result = build_llm_context(TMP_PATH, sheet_name="Second")
         self.assertIn("second-sheet-value", result.compressed_text)
         self.assertNotIn("first-sheet-value", result.compressed_text)
+
+
+def _make_styled_xlsx() -> str:
+    """Small sheet exercising fills, font colors, bold/italic, sizes."""
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    header_font = Font(bold=True, size=14, color="FFFFFFFF")
+    header_fill = PatternFill(patternType="solid", fgColor="FF4472C4")
+    for j, h in enumerate(["Product", "Status", "Notes"]):
+        cell = ws.cell(row=1, column=1 + j, value=h)
+        cell.font = header_font
+        cell.fill = header_fill
+    body = [
+        ("Widget", "OK", "fine"),
+        ("Gadget", "LATE", "check"),
+        ("Doohickey", "OK", "fine"),
+        ("Gizmo", "OK", "fine"),
+    ]
+    for i, row in enumerate(body):
+        for j, v in enumerate(row):
+            ws.cell(row=2 + i, column=1 + j, value=v)
+    ws["B3"].font = Font(color="FFFF0000")  # red "LATE"
+    ws["C5"].font = Font(italic=True)
+    ws["A7"].fill = PatternFill(patternType="solid", fgColor="FFFFFF00")  # empty, filled
+    wb.save(TMP_PATH)
+    return TMP_PATH
+
+
+class CoalesceRectanglesTests(unittest.TestCase):
+    def test_single_cell(self) -> None:
+        self.assertEqual(_coalesce_rectangles({(2, 3)}), [(2, 3, 2, 3)])
+
+    def test_horizontal_run(self) -> None:
+        self.assertEqual(
+            _coalesce_rectangles({(1, 1), (1, 2), (1, 3)}), [(1, 1, 1, 3)]
+        )
+
+    def test_solid_block(self) -> None:
+        coords = {(r, c) for r in (1, 2, 3) for c in (2, 3)}
+        self.assertEqual(_coalesce_rectangles(coords), [(1, 2, 3, 3)])
+
+    def test_l_shape_splits(self) -> None:
+        rects = _coalesce_rectangles({(1, 1), (1, 2), (2, 1)})
+        self.assertEqual(rects, [(1, 1, 1, 2), (2, 1, 2, 1)])
+
+    def test_vertical_gap_splits(self) -> None:
+        rects = _coalesce_rectangles({(1, 1), (3, 1)})
+        self.assertEqual(rects, [(1, 1, 1, 1), (3, 1, 3, 1)])
+
+    def test_all_cells_covered_exactly_once(self) -> None:
+        coords = {(1, 1), (1, 2), (2, 2), (2, 3), (3, 2), (3, 3), (5, 1)}
+        rects = _coalesce_rectangles(coords)
+        covered = [
+            (r, c)
+            for top, left, bottom, right in rects
+            for r in range(top, bottom + 1)
+            for c in range(left, right + 1)
+        ]
+        self.assertEqual(sorted(covered), sorted(coords))
+        self.assertEqual(len(covered), len(set(covered)))
+
+
+class StyleAnchorTests(unittest.TestCase):
+    def test_bold_only_row_becomes_anchor(self) -> None:
+        # 20 rows of identical "General" strings: without style, the middle
+        # rows are homogeneous non-anchors; a bold row must register.
+        sheet = _make_sheet(20)
+        self.assertNotIn(10, find_row_anchors(sheet))
+        for cell in sheet.cells[9]:
+            cell.bold = True
+        self.assertIn(10, find_row_anchors(sheet))
+
+
+class FormattingIndexTests(unittest.TestCase):
+    def tearDown(self) -> None:
+        if os.path.exists(TMP_PATH):
+            os.remove(TMP_PATH)
+
+    def test_plain_sheet_has_no_formatting_section(self) -> None:
+        path = _make_simple_xlsx()
+        result = build_llm_context(path)
+        self.assertNotIn("[FORMATTING]", result.compressed_text)
+
+    def test_header_band_coalesced_with_full_style(self) -> None:
+        path = _make_styled_xlsx()
+        result = build_llm_context(path)
+        self.assertIn("[FORMATTING]", result.compressed_text)
+        # fill + font color + bold + outlier size, coalesced to one range
+        self.assertIn(
+            "(fill:#4472C4 font:#FFFFFF bold 14pt|A1:C1)", result.compressed_text
+        )
+
+    def test_individual_styles_reported(self) -> None:
+        path = _make_styled_xlsx()
+        result = build_llm_context(path)
+        self.assertIn("(font:#FF0000|B3)", result.compressed_text)
+        self.assertIn("(italic|C5)", result.compressed_text)
+
+    def test_filled_empty_cell_reported(self) -> None:
+        path = _make_styled_xlsx()
+        result = build_llm_context(path)
+        self.assertIn("(fill:#FFFF00|A7)", result.compressed_text)
+
+    def test_prevailing_font_size_suppressed(self) -> None:
+        # Body cells are default 11pt -- the modal size must not be spelled
+        # out for every cell, only the header's outlier 14pt.
+        path = _make_styled_xlsx()
+        result = build_llm_context(path)
+        self.assertNotIn("11pt", result.compressed_text)
+        self.assertIn("14pt", result.compressed_text)
+
+    def test_theme_colors_resolved_to_hex(self) -> None:
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws["A1"] = "alpha"
+        ws["A1"].fill = PatternFill(patternType="solid", fgColor=Color(theme=4))
+        ws["A2"] = "beta"
+        ws["A2"].fill = PatternFill(
+            patternType="solid", fgColor=Color(theme=4, tint=0.4)
+        )
+        wb.save(TMP_PATH)
+        result = build_llm_context(TMP_PATH)
+        # openpyxl's default theme: accent1 = 4F81BD; 40% tint = 95B3D7
+        # (matches Excel's "Accent 1, Lighter 40%").
+        self.assertIn("fill:#4F81BD|A1", result.compressed_text)
+        self.assertIn("fill:#95B3D7|A2", result.compressed_text)
+        self.assertNotIn("theme", result.compressed_text)
+
+    def test_merged_title_style_covers_whole_range(self) -> None:
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws["A1"] = "Quarterly Report"
+        ws["A1"].font = Font(bold=True)
+        ws["A1"].fill = PatternFill(patternType="solid", fgColor="FFDDEBF7")
+        ws.merge_cells("A1:C1")
+        ws.append([])  # row 2 empty
+        ws.append(["a", "b", "c"])
+        wb.save(TMP_PATH)
+        result = build_llm_context(TMP_PATH)
+        self.assertIn("(fill:#DDEBF7 bold|A1:C1)", result.compressed_text)
+
+    def test_json_output_includes_formatting_block(self) -> None:
+        path = _make_styled_xlsx()
+        result = build_llm_context(path, output_style="json")
+        self.assertIn("[FORMATTING]", result.compressed_text)
+        self.assertIn(
+            '"fill:#4472C4 font:#FFFFFF bold 14pt": "A1:C1"', result.compressed_text
+        )
+
+    def test_formatting_survives_extraction_and_sampling(self) -> None:
+        # Style the header of the big sheet: after Module 1 + row sampling
+        # compact the grid, the header band must still be reported at the
+        # compacted A1:C1 position.
+        path = _make_big_xlsx(300)
+        wb = openpyxl.load_workbook(path)
+        ws = wb.active
+        for c in range(1, 4):
+            cell = ws.cell(row=1, column=c)
+            cell.font = Font(bold=True)
+            cell.fill = PatternFill(patternType="solid", fgColor="FF4472C4")
+        wb.save(path)
+        result = build_llm_context(path)
+        self.assertIn("[NOTE:", result.compressed_text)  # sampling did happen
+        self.assertIn("(fill:#4472C4 bold|A1:C1)", result.compressed_text)
+
+    def test_style_index_empty_for_unstyled_sheet(self) -> None:
+        sheet = _make_sheet(5, n_cols=3)
+        self.assertEqual(build_style_index(sheet), {})
 
 
 if __name__ == "__main__":
