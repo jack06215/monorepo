@@ -1,18 +1,50 @@
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
 load("@rules_python//python:py_test.bzl", "py_test")
 
-_TEST_SRCS = glob(["**/*.py"])
+cc_library(
+    name = "prettyprint",
+    srcs = ["prettyprint.hpp"],
+)
+
+cc_library(
+    name = "catch",
+    srcs = ["catch.hpp"],
+)
+
+cc_library(
+    name = "binarytree",
+    srcs = ["binarytree.hpp"],
+)
+
+_CC_TEST_SRCS = glob(["**/*.cpp"])
+
+_PY_TEST_SRCS = glob(["**/*.py"])
+
+[
+    cc_test(
+        name = src[:-len(".cpp")].split("/")[-1] + "_cc",
+        srcs = [src],
+        deps = [
+            ":binarytree",
+            ":catch",
+            ":prettyprint",
+        ],
+    )
+    for src in _CC_TEST_SRCS
+]
 
 [
     py_test(
-        name = src[:-len(".py")].split("/")[-1],
+        name = src[:-len(".py")].split("/")[-1] + "_py",
         srcs = [src],
         legacy_create_init = False,
         main = src,
     )
-    for src in _TEST_SRCS
+    for src in _PY_TEST_SRCS
 ]
 
 test_suite(
     name = "all_tests",
-    tests = [src[:-len(".py")].split("/")[-1] for src in _TEST_SRCS],
+    tests = [src[:-len(".cpp")].split("/")[-1] + "_cc" for src in _CC_TEST_SRCS] +
+            [src[:-len(".py")].split("/")[-1] + "_py" for src in _PY_TEST_SRCS],
 )
