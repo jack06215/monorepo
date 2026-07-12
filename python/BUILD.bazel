@@ -1,0 +1,15 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+
+# Aggregate check/fix over every py_library/py_binary built via
+# //tools/python:defs.bzl (they generate `<name>.lint` / `<name>.fix`
+# targets). These discover their targets with `bazel query` at run time, so
+# no manual list of packages needs to be kept up to date here.
+sh_binary(
+    name = "check",
+    srcs = ["//tools/python:check_all.sh"],
+)
+
+sh_binary(
+    name = "fix",
+    srcs = ["//tools/python:fix_all.sh"],
+)

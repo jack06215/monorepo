@@ -1,0 +1,34 @@
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
+load("@rules_python//python/entry_points:py_console_script_binary.bzl", "py_console_script_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+# ruff ships as a native binary inside the wheel's `<name>.data/scripts/`
+# directory with no console_scripts entry point, so py_console_script_binary
+# doesn't apply. Pull the raw binary out of the wheel and wrap it directly.
+genrule(
+    name = "ruff_bin_extract",
+    srcs = ["@monorepo_pip//ruff:whl"],
+    outs = ["ruff_bin"],
+    cmd = "unzip -p $(location @monorepo_pip//ruff:whl) 'ruff-*.data/scripts/ruff' > $@ && chmod +x $@",
+    executable = True,
+)
+
+native_binary(
+    name = "ruff",
+    src = ":ruff_bin_extract",
+    out = "ruff_bin_out",
+)
+
+py_console_script_binary(
+    name = "mypy",
+    legacy_create_init = False,
+    pkg = "@monorepo_pip//mypy",
+)
+
+exports_files([
+    "check_all.sh",
+    "fix.sh",
+    "fix_all.sh",
+    "lint.sh",
+])
