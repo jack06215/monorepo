@@ -6,8 +6,8 @@ py_library(
     name = "hello_world_lib",
     srcs = ["main.py"],
     deps = [
-      requirement("pydantic"),
-      requirement("pandas"),
+        requirement("pydantic"),
+        requirement("pandas"),
     ],
 )
 
@@ -16,6 +16,6 @@ py_binary(
     srcs = ["main.py"],
     main = "main.py",
     deps = [
-      ":hello_world_lib",
+        ":hello_world_lib",
     ],
 )

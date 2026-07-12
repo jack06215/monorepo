@@ -22,3 +22,11 @@ buildifier(
     mode = "diff",
 )
 
+buildifier(
+    name = "buildifier.fix",
+    exclude_patterns = [
+        "./.git/*",
+    ],
+    lint_mode = "fix",
+    mode = "fix",
+)

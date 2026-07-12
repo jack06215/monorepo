@@ -19,9 +19,7 @@ py_library(
 
 py_binary(
     name = "dagster_hello_world",
-    srcs = glob(
-        ["main.py"],
-    ),
+    srcs = ["main.py"],
     main = "main.py",
     deps = [
         ":dagster_hello_world_lib",
