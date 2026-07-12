@@ -1,16 +1,20 @@
-load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
+load("@rules_cc//cc:defs.bzl", native_cc_library = "cc_library")
 load("@rules_python//python:py_test.bzl", "py_test")
+load("//rules/cpp/lint:defs.bzl", "cc_library", "cc_test")
 
-cc_library(
+# Vendored third-party headers -- left on the plain native cc_library so
+# check_all/fix_all don't reformat/lint code we don't own.
+native_cc_library(
     name = "prettyprint",
     srcs = ["prettyprint.hpp"],
 )
 
-cc_library(
+native_cc_library(
     name = "catch",
     srcs = ["catch.hpp"],
 )
 
+# Our own code -- wrapped so it gets `.check`/`.fix` like the cc_test targets.
 cc_library(
     name = "binarytree",
     srcs = ["binarytree.hpp"],

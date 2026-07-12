@@ -1,0 +1,22 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+exports_files([
+    "check.sh",
+    "fix.sh",
+])
+
+# Aggregate check/fix over every cc_test built via //rules/cpp/lint:defs.bzl
+# (they generate `<name>.check` / `<name>.fix` targets, tagged "cpp_lint").
+# These discover their targets with `bazel query` at run time, so no manual
+# list of packages needs to be kept up to date here.
+sh_binary(
+    name = "check_all",
+    srcs = ["check_all.sh"],
+)
+
+sh_binary(
+    name = "fix_all",
+    srcs = ["fix_all.sh"],
+)
