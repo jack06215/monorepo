@@ -42,25 +42,25 @@ def _lint_and_fix_targets(name, srcs, deps = []):
 
     sh_test(
         name = name + ".lint",
-        srcs = ["//tools/python:lint.sh"],
+        srcs = ["//rules/python/lint:lint.sh"],
         args = [
-            "$(rootpath //tools/python:ruff)",
-            "$(rootpath //tools/python:mypy)",
+            "$(rootpath //rules/python/lint:ruff)",
+            "$(rootpath //rules/python/lint:mypy)",
         ] + ["$(rootpath %s)" % src for src in srcs],
         data = srcs + _same_package_dep_srcs(deps, srcs_canon) + [
-            "//tools/python:ruff",
-            "//tools/python:mypy",
+            "//rules/python/lint:ruff",
+            "//rules/python/lint:mypy",
         ],
     )
 
     sh_binary(
         name = name + ".fix",
-        srcs = ["//tools/python:fix.sh"],
+        srcs = ["//rules/python/lint:fix.sh"],
         args = [
-            "$(rootpath //tools/python:ruff)",
+            "$(rootpath //rules/python/lint:ruff)",
             native.package_name(),
         ] + srcs,
-        data = srcs + ["//tools/python:ruff"],
+        data = srcs + ["//rules/python/lint:ruff"],
     )
 
 def py_library(name, srcs = [], deps = [], **kwargs):

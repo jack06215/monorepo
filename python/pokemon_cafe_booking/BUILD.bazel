@@ -1,5 +1,5 @@
 load("@monorepo_pip//:requirements.bzl", "requirement")
-load("//tools/python:defs.bzl", "py_binary", "py_library")
+load("//rules/python/lint:defs.bzl", "py_binary", "py_library")
 
 filegroup(
     name = "pokemon_cafe_booking_driver",
