@@ -1,11 +1,15 @@
+from pathlib import Path
+
 import dagster
 import pandas as pd
+
+DATA_DIR = Path(__file__).parent / "data"
 
 
 @dagster.asset
 def processed_data():
     # Read data from the CSV
-    df = pd.read_csv("data/sample_data.csv")
+    df = pd.read_csv(DATA_DIR / "sample_data.csv")
 
     # Add an age_group column based on the value of age
     df["age_group"] = pd.cut(
@@ -13,7 +17,7 @@ def processed_data():
     )
 
     # Save processed data
-    df.to_csv("data/processed_data.csv", index=False)
+    df.to_csv(DATA_DIR / "processed_data.csv", index=False)
     return "Data loaded successfully"
 
 

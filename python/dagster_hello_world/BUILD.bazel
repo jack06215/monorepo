@@ -1,11 +1,18 @@
 load("@monorepo_pip//:requirements.bzl", "requirement")
-load("//rules/python/lint:defs.bzl", "py_binary", "py_library")
+load("//rules/python/dagster:defs.bzl", "dagster_dagit")
+load("//rules/python/lint:defs.bzl", "py_library")
+
+filegroup(
+    name = "dagster_hello_world_data",
+    srcs = ["data/sample_data.csv"],
+    visibility = [":__subpackages__"],
+)
 
 py_library(
     name = "dagster_hello_world_lib",
-    srcs = ["assets.py"],
+    srcs = ["workspace.py"],
     data = [
-        "data/sample_data.csv",
+        ":dagster_hello_world_data",
     ],
     deps = [
         requirement("pydantic"),
@@ -16,10 +23,9 @@ py_library(
     ],
 )
 
-py_binary(
+dagster_dagit(
     name = "dagster_hello_world",
-    srcs = ["main.py"],
-    main = "main.py",
+    defs_src = "workspace.py",
     deps = [
         ":dagster_hello_world_lib",
     ],
