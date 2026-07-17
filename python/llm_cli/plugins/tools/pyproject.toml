@@ -1,0 +1,25 @@
+[project]
+name = "llm-plugin-tools"
+version = "0.1.1"
+requires-python = ">=3.12"
+dependencies = [
+    "llm>=0.26"
+]
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = [
+  "llm_plugin_extract_city",
+  "llm_plugin_word_count",
+  "llm_plugin_cmd",
+  "llm_plugin_example_run_zsh_python",
+]
+
+[project.entry-points.llm]
+llm-plugin-extract-city = "llm_plugin_extract_city"
+llm-plugin-word-count = "llm_plugin_word_count"
+llm-plugin-cmd = "llm_plugin_cmd"
+llm-plugin-example-run-zsh-python = "llm_plugin_example_run_zsh_python"

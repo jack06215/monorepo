@@ -1,0 +1,21 @@
+[project]
+name = "llm-plugin-models"
+version = "0.1.1"
+requires-python = ">=3.12"
+dependencies = [
+    "llm>=0.26"
+]
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = [
+  "llm_plugin_azure",
+  "llm_plugin_openai",
+]
+
+[project.entry-points.llm]
+llm-plugin-azure = "llm_plugin_azure"
+llm-plugin-openai = "llm_plugin_openai"
