@@ -1,0 +1,44 @@
+load("@monorepo_pip//:requirements.bzl", "requirement")
+load("@rules_python//python:py_test.bzl", "py_test")
+load("//rules/python/lint:defs.bzl", "py_library")
+
+py_library(
+    name = "common",
+    srcs = [
+        "execute.py",
+        "execute_async.py",
+        "langchain_invoke.py",
+        "llm_client.py",
+        "logging_util.py",
+        "path_util.py",
+        "sys_util.py",
+    ],
+    imports = [".."],
+    visibility = ["//python:__subpackages__"],
+    deps = [
+        requirement("langchain-core"),
+        requirement("langchain-ollama"),
+        requirement("langchain-openai"),
+        requirement("openai"),
+        requirement("pydantic"),
+        requirement("tenacity"),
+    ],
+)
+
+_TEST_SRCS = glob(["test_*.py"])
+
+[
+    py_test(
+        name = src[:-len(".py")],
+        srcs = [src],
+        legacy_create_init = False,
+        main = src,
+        deps = [":common"],
+    )
+    for src in _TEST_SRCS
+]
+
+test_suite(
+    name = "test_all",
+    tests = [src[:-len(".py")] for src in _TEST_SRCS],
+)
