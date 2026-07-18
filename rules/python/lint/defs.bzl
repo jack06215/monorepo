@@ -10,6 +10,7 @@ the sandboxed copies. It must be invoked with `bazel run //pkg:name.fix`.
 
 load("@rules_python//python:py_binary.bzl", native_py_binary = "py_binary")
 load("@rules_python//python:py_library.bzl", native_py_library = "py_library")
+load("@rules_python//python/entry_points:py_console_script_binary.bzl", "py_console_script_binary")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
@@ -40,16 +41,31 @@ def _lint_and_fix_targets(name, srcs, deps = []):
 
     srcs_canon = [_canon(s) for s in srcs]
 
+    # mypy needs the target's own third-party deps (langchain-core, pydantic,
+    # etc.) importable, or it silently treats them as Any and can misreport
+    # errors (e.g. bogus overload-cannot-match / type-var findings). The
+    # shared //rules/python/lint:mypy binary only carries mypy's own deps, so
+    # build a copy of the console script wired to this target's deps instead.
+    mypy_bin = name + ".mypy_bin"
+    py_console_script_binary(
+        name = mypy_bin,
+        pkg = "@monorepo_pip//mypy",
+        script = "mypy",
+        deps = deps,
+        legacy_create_init = False,
+        visibility = ["//visibility:private"],
+    )
+
     sh_test(
         name = name + ".lint",
         srcs = ["//rules/python/lint:lint.sh"],
         args = [
             "$(rootpath //rules/python/lint:ruff)",
-            "$(rootpath //rules/python/lint:mypy)",
+            "$(rootpath :%s)" % mypy_bin,
         ] + ["$(rootpath %s)" % src for src in srcs],
         data = srcs + _same_package_dep_srcs(deps, srcs_canon) + [
             "//rules/python/lint:ruff",
-            "//rules/python/lint:mypy",
+            ":" + mypy_bin,
         ],
     )
 
