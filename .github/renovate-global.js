@@ -4,6 +4,16 @@
 // rules (what to update, how to group, when). This one holds settings that only
 // make sense for the runner itself and that a repo config is not permitted to set.
 
+// Optional per-run override of the release-age gate, fed by the
+// `minimumReleaseAge` workflow_dispatch input. Blank means "use the committed
+// value in .github/renovate.json5".
+//
+// This has to travel through `force` rather than a plain
+// RENOVATE_MINIMUM_RELEASE_AGE env var: Renovate ranks repository config ABOVE
+// environment variables, so an env var would be silently outranked by the
+// committed value. `force` is the one level that beats repo config.
+const releaseAgeOverride = (process.env.RENOVATE_X_MIN_RELEASE_AGE || "").trim();
+
 module.exports = {
   platform: "github",
   repositories: ["jack06215/monorepo"],
@@ -31,4 +41,10 @@ module.exports = {
   // A config file is already committed, so skip the onboarding PR entirely.
   onboarding: false,
   requireConfig: "required",
+
+  // Spread in only when the input was actually supplied, so the committed
+  // 10-day gate stays in charge on every scheduled run.
+  ...(releaseAgeOverride
+    ? { force: { minimumReleaseAge: releaseAgeOverride } }
+    : {}),
 };

@@ -72,11 +72,12 @@
 
   dependencyDashboard: true,
   rebaseWhen: "conflicted",
-  // TEMPORARY (validation) -- revert to: prConcurrentLimit: 5
   // Capped at 1 so the validation dispatch yields a single PR to inspect
   // instead of the grouped PR plus a separate PR per available major.
   prConcurrentLimit: 1,
   prHourlyLimit: 0,
+
+  minimumReleaseAge: "10 days",
 
   // ---------------------------------------------------------------------------
   // Keep the Bazel-consumed export in sync

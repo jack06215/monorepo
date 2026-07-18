@@ -1,11 +1,8 @@
 name: Renovate
 
 on:
-  # Renovate's own `schedule` in .github/renovate.json5 is the real gate on when
-  # PRs may be raised; this cron only has to fire often enough to cover it.
-  # Running daily means a missed Monday window is picked up the next morning.
   schedule:
-    - cron: "0 18 * * *" # 03:00 Asia/Tokyo
+    - cron: "0 18 * * *"  # 03:00 Asia/Tokyo
   workflow_dispatch:
     inputs:
       dryRun:
@@ -19,6 +16,10 @@ on:
           - info
           - debug
         default: info
+      minimumReleaseAge:
+        description: "Override the release-age gate for this run only, e.g. '0 days' to pull an urgent security fix immediately. Blank uses the committed 10 days."
+        type: string
+        default: ""
 
 concurrency:
   group: renovate
@@ -30,14 +31,8 @@ permissions:
 jobs:
   renovate:
     runs-on: ubuntu-latest
-    # RENOVATE_TOKEN is stored as an environment secret, so the job has to claim
-    # the environment before `secrets.RENOVATE_TOKEN` resolves to anything.
-    # Without this it silently expands to an empty string and Renovate fails to
-    # authenticate.
     environment: renovate
     steps:
-      # Needed only so `configurationFile` exists on disk for the action to read.
-      # Renovate clones the repo itself over the API for the actual work.
       - name: Checkout
         uses: actions/checkout@v6
         with:
@@ -50,7 +45,5 @@ jobs:
           configurationFile: .github/renovate-global.js
         env:
           LOG_LEVEL: ${{ inputs.logLevel || 'info' }}
-          # `null` is Renovate's documented default for dryRun, i.e. "run for
-          # real". An empty string would instead be read as an invalid value.
-          # Other accepted values: extract, lookup, full.
           RENOVATE_DRY_RUN: ${{ inputs.dryRun && 'full' || 'null' }}
+          RENOVATE_X_MIN_RELEASE_AGE: ${{ inputs.minimumReleaseAge }}
