@@ -30,6 +30,11 @@ permissions:
 jobs:
   renovate:
     runs-on: ubuntu-latest
+    # RENOVATE_TOKEN is stored as an environment secret, so the job has to claim
+    # the environment before `secrets.RENOVATE_TOKEN` resolves to anything.
+    # Without this it silently expands to an empty string and Renovate fails to
+    # authenticate.
+    environment: renovate
     steps:
       # Needed only so `configurationFile` exists on disk for the action to read.
       # Renovate clones the repo itself over the API for the actual work.
