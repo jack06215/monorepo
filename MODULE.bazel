@@ -16,6 +16,9 @@ pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.download(version = "1.23.4")
 
+chromedriver = use_extension("//rules/third_party/chromedriver:repo.bzl", "chromedriver_extension")
+use_repo(chromedriver, "chromedriver")
+
 # Setup Python runtime
 python.toolchain(
     python_version = "3.13",

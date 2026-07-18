@@ -4,6 +4,7 @@ import re
 from datetime import datetime
 
 from pydantic import BaseModel
+from runfiles import Runfiles
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
@@ -12,7 +13,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select, WebDriverWait
 
-from packages.pokemon_cafe_booking import definition
+
+def chromedriver_path() -> str:
+    rlocationpath = os.environ["CHROMEDRIVER_RLOCATIONPATH"]
+    runfiles = Runfiles.Create()
+    if runfiles is None:
+        raise RuntimeError("Runfiles create failed.")
+    path = runfiles.Rlocation(rlocationpath)
+    if path is None:
+        raise RuntimeError(f"could not resolve chromedriver runfile: {rlocationpath}")
+    return path
 
 
 class BookingTimetable(BaseModel):
@@ -105,38 +115,61 @@ def get_timetable(text: str) -> list[BookingTimetable]:
     return res
 
 
+def _wait_for_captcha_success(
+    driver: webdriver.Chrome, timeout: int = 600, poll_interval: int = 1
+) -> None:
+    """After agreeing to terms, the site almost always shows an AWS WAF
+    captcha challenge (it can't be automated). Solving it shows a brief
+    "Success" page before the site bounces back through /reserve/auth_confirm
+    and on into the reservation flow -- the URL stays on /reserve/auth_confirm
+    throughout, so it isn't a usable signal. Poll every `poll_interval`
+    seconds for either the "Success" text or the next step's own element, in
+    case the "Success" page comes and goes faster than we poll.
+    """
+    print(
+        "Captcha challenge showing - complete it in the browser window "
+        f"(checking every {poll_interval}s)..."
+    )
+
+    def _resolved(d: webdriver.Chrome) -> bool:
+        if "Success" in d.page_source:
+            return True
+        return len(d.find_elements(By.XPATH, "//*[@class='button arrow-down']")) > 0
+
+    WebDriverWait(driver, timeout, poll_frequency=poll_interval).until(_resolved)
+
+
 def create_booking(location: str, n_guests: int) -> None:
     if location == "Tokyo":
         website = "https://reserve.pokemon-cafe.jp/"
     elif location == "Osaka":
         website = "https://osaka.pokemon-cafe.jp/"
+    else:
+        raise NotImplementedError
 
     chrome_options = Options()
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_experimental_option("detach", True)
     # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
-    service = Service(
-        executable_path=os.path.join(
-            definition.ROOT_DIR,
-            "chromedriver.exe",
-        )
-    )
+    service = Service(executable_path=chromedriver_path())
     driver = webdriver.Chrome(options=chrome_options, service=service)
     driver.get(website)
     try:
         # Step 1: Agree to terms and conditions
-        driver.find_element(
-            By.XPATH,
-            "//*[@class='agreeChecked']",
-        ).click()
-        driver.find_element(
-            By.XPATH,
-            "//*[@class='button']",
-        ).click()
+        agree_radio = driver.find_element(By.XPATH, "//*[@class='agreeChecked']")
+        driver.execute_script("arguments[0].scrollIntoView(true);", agree_radio)
+        agree_radio.click()
+
+        agree_button = driver.find_element(By.XPATH, "//*[@class='button']")
+        driver.execute_script("arguments[0].scrollIntoView(true);", agree_button)
+        agree_button.click()
+
+        # Step 1.5: AWS WAF captcha challenge, must be solved manually
+        _wait_for_captcha_success(driver)
 
         # Step 2: Make reservation button
-        make_reservation_button = WebDriverWait(driver, 10).until(
+        make_reservation_button = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located(
                 (By.XPATH, "//*[@class='button arrow-down']")
             )
