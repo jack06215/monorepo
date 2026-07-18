@@ -72,6 +72,17 @@
 
   dependencyDashboard: true,
   rebaseWhen: "conflicted",
+
+  // TEMPORARY (validation) -- remove once the pin PR has merged.
+  // Closing a Renovate PR unmerged means "don't offer this again", and Renovate
+  // honours that permanently. PRs #9/#10 (renovate/python-non-major) and #11
+  // (renovate/python-pin) were closed during testing, so every run now creates
+  // the branch, finds the closed PR, and aborts with "Repository has changed
+  // during renovation". "always" ignores that memory so the branches get PRs.
+  //
+  // Do NOT leave this on: it makes every PR immortal -- closing one no longer
+  // dismisses it, it returns on the next run.
+  recreateWhen: "always",
   // Capped at 1 so the validation dispatch yields a single PR to inspect
   // instead of the grouped PR plus a separate PR per available major.
   prConcurrentLimit: 1,
