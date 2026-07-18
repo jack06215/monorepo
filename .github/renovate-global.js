@@ -8,6 +8,16 @@ module.exports = {
   platform: "github",
   repositories: ["jack06215/monorepo"],
 
+  // Renovate's default author is renovate@whitesourcesoftware.com, an address
+  // owned by Mend with Vigilant Mode enabled -- every commit from it lands
+  // marked "Unverified". Using an identity tied to this account lets GitHub
+  // attribute and sign the commits instead.
+  //
+  // Trade-off: dependency bumps will read as authored by you. To keep them
+  // visibly bot-authored (at the cost of staying unverified), swap in:
+  //   "renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>"
+  gitAuthor: "Jack Cho <jack06215@gmail.com>",
+
   // Post-upgrade commands are refused unless they match one of these regexes.
   // Renovate deliberately makes this global-only so a repo config can never
   // grant itself arbitrary command execution.

@@ -45,7 +45,13 @@
   // ---------------------------------------------------------------------------
 
   timezone: "Asia/Tokyo",
-  schedule: ["* 0-6 * * 1"], // Monday, before 07:00 local
+
+  // TEMPORARY (validation) -- revert to: schedule: ["* 0-6 * * 1"]
+  // Widened so a manual dispatch can create a real PR now and finally exercise
+  // the postUpgradeTasks export below, which no run has done yet. The 2026-07-18
+  // run extracted 84 deps cleanly but fell on a Sunday, outside the Monday
+  // window, so no branch was ever built.
+  schedule: ["at any time"],
 
   // Everything lands as a PR for a human to merge. Renovate never commits to
   // master and never merges its own work.
@@ -54,7 +60,10 @@
 
   dependencyDashboard: true,
   rebaseWhen: "conflicted",
-  prConcurrentLimit: 5,
+  // TEMPORARY (validation) -- revert to: prConcurrentLimit: 5
+  // Capped at 1 so the validation dispatch yields a single PR to inspect
+  // instead of the grouped PR plus a separate PR per available major.
+  prConcurrentLimit: 1,
   prHourlyLimit: 0,
 
   // ---------------------------------------------------------------------------
