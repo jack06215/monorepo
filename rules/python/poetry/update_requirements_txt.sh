@@ -16,6 +16,6 @@ echo "==> poetry lock"
 poetry lock
 
 echo "==> poetry export -> requirements.txt"
-poetry export -f requirements.txt -o requirements.txt --without-hashes
+poetry export -f requirements.txt -o requirements.txt
 
 echo "==> done. review with 'git diff requirements.txt'"

@@ -16,7 +16,7 @@ work_dir="$(mktemp -d 2>/dev/null || mktemp -d -t poetry-reqs)"
 trap 'rm -rf "${work_dir}"' EXIT
 
 echo "==> poetry export (dry run, not touching requirements.txt)"
-poetry export -f requirements.txt -o "${work_dir}/requirements.generated.txt" --without-hashes
+poetry export -f requirements.txt -o "${work_dir}/requirements.generated.txt"
 
 if [[ ! -f requirements.txt ]]; then
   echo "requirements.txt is missing; run: bazel run //rules/python/poetry:update_requirements_txt" >&2
