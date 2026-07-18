@@ -28,6 +28,18 @@
     enabled: false,
   },
 
+  // `[tool.poetry.dependencies] python` is a dependency like any other to the
+  // poetry manager, and 3.13 -> 3.14 reads as a minor update, so it silently
+  // landed in the grouped non-major PR and broke the lock step:
+  //   "The currently activated Python version 3.13.13 is not supported by the
+  //    project (3.14.6)"
+  //
+  // The interpreter is pinned in three places Renovate cannot see --
+  // .tool-versions, MODULE.bazel:24 (python.toolchain) and MODULE.bazel:31
+  // (pip.parse) -- so bumping it here alone desyncs the Bazel toolchain.
+  // Python upgrades stay a deliberate, coordinated, human change.
+  ignoreDeps: ["python"],
+
   // ---------------------------------------------------------------------------
   // Toolchain
   // ---------------------------------------------------------------------------
