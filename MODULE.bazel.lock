@@ -213,6 +213,19 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
+    "//rules/third_party/chromedriver:repo.bzl%chromedriver_extension": {
+      "general": {
+        "bzlTransitiveDigest": "fwyO0fg7GOCWALVJbI9H6ajO7NCv0iMGfVEMWyMlaOA=",
+        "usagesDigest": "E8br3Jbl5XVF6+frGH8Y0dCkZW1GryWdWfaezJSv7AY=",
+        "recordedInputs": [],
+        "generatedRepoSpecs": {
+          "chromedriver": {
+            "repoRuleId": "@@//rules/third_party/chromedriver:repo.bzl%chromedriver_repository",
+            "attributes": {}
+          }
+        }
+      }
+    },
     "@@buildifier_prebuilt+//:defs.bzl%buildifier_prebuilt_deps_extension": {
       "general": {
         "bzlTransitiveDigest": "pFomfXn5P10nAZA5FQUNmIOMNjUrIzY6LjJwY1w8dlg=",
@@ -1019,6 +1032,9 @@
           "backports-tarfile": {
             "https://files.pythonhosted.org/packages/86/72/cd9b395f25e290e633655a100af28cb253e4393396264a98bd5f5951d50f/backports_tarfile-1.2.0.tar.gz": "d75e02c268746e1b8144c278978b6e98e85de6ad16f8e4b0844a154557eca991",
             "https://files.pythonhosted.org/packages/b9/fa/123043af240e49752f1c4bd24da5053b6bd00cad78c2be53c0d1e8b975bc/backports.tarfile-1.2.0-py3-none-any.whl": "77e284d754527b01fb1e6fa8a1afe577858ebe4e9dad8919e34c862cb399bc34"
+          },
+          "bazel-runfiles": {
+            "https://files.pythonhosted.org/packages/c5/14/af3de3591b571cdd77412f0acb29744c14df268755392367fb96b641aad5/bazel_runfiles-2.1.0-py3-none-any.whl": "d27b4d01eed5927126781cc104aae7b65fd49f2e7f6f92f38eee39165e3ba0e4"
           },
           "beautifulsoup4": {
             "https://files.pythonhosted.org/packages/50/cd/30110dc0ffcf3b131156077b90e9f60ed75711223f306da4db08eff8403b/beautifulsoup4-4.13.4-py3-none-any.whl": "9bbbb14bfde9d79f38b8cd5f8c7c85f4b8f2523190ebed90e950a8dea4cb1c4b",

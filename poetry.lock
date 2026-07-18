@@ -602,6 +602,17 @@ files = [
 ]
 
 [[package]]
+name = "bazel-runfiles"
+version = "2.1.0"
+description = ""
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "bazel_runfiles-2.1.0-py3-none-any.whl", hash = "sha256:d27b4d01eed5927126781cc104aae7b65fd49f2e7f6f92f38eee39165e3ba0e4"},
+]
+
+[[package]]
 name = "beautifulsoup4"
 version = "4.13.4"
 description = "Screen-scraping library"
@@ -8722,4 +8733,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "3.13.13"
-content-hash = "a3bb90821bc7debff213ce4208dab1dcd83510388200f252e5a03580e2e5d7e7"
+content-hash = "52cf4770f3db2064b5445b490ceb6a9afe21065b2c8c712291fb1413ad8ca0a2"
