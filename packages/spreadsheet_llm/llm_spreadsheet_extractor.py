@@ -16,7 +16,7 @@ Usage:
 
 import argparse
 
-from python.spreadsheet_llm.llm_context_encoder import build_llm_context
+from packages.spreadsheet_llm.llm_context_encoder import build_llm_context
 
 
 def main():

@@ -107,7 +107,7 @@ enable_error_code = [
 exclude = ["generated", "migrations"]
 explicit_package_bases = true
 extra_checks = true
-mypy_path = ["python"]
+mypy_path = ["packages"]
 
 [build-system]
 build-backend = "poetry.core.masonry.api"

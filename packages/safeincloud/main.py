@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from python.safeincloud.decrypter import Decrypter
+from packages.safeincloud.decrypter import Decrypter
 
 
 def main() -> bytes:

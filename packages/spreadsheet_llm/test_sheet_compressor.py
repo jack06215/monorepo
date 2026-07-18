@@ -12,21 +12,21 @@ import unittest
 
 import openpyxl
 
-from python.spreadsheet_llm.data_format_aggregation import (
+from packages.spreadsheet_llm.data_format_aggregation import (
     aggregate_by_data_format,
     infer_data_type,
 )
-from python.spreadsheet_llm.inverted_index import (
+from packages.spreadsheet_llm.inverted_index import (
     build_inverted_index,
     render_paper_style,
 )
-from python.spreadsheet_llm.sheet_compressor import (
+from packages.spreadsheet_llm.sheet_compressor import (
     compress_sheet,
     count_tokens,
     vanilla_encode,
 )
-from python.spreadsheet_llm.sheet_model import Cell, load_xlsx
-from python.spreadsheet_llm.structural_anchors import extract_structural_anchors
+from packages.spreadsheet_llm.sheet_model import Cell, load_xlsx
+from packages.spreadsheet_llm.structural_anchors import extract_structural_anchors
 
 TMP_PATH = "/tmp/_sc_test.xlsx"
 

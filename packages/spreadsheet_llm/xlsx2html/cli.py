@@ -5,8 +5,8 @@ import pathlib
 
 import pydantic
 
-from python.common import path_util
-from python.spreadsheet_llm.xlsx2html import parser
+from packages.common import path_util
+from packages.spreadsheet_llm.xlsx2html import parser
 
 
 class Args(pydantic.BaseModel):

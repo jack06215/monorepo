@@ -22,8 +22,8 @@ from typing import Dict, List
 
 from openpyxl.utils import get_column_letter
 
-from python.spreadsheet_llm.data_format_aggregation import AggregatedRegion
-from python.spreadsheet_llm.sheet_model import Sheet
+from packages.spreadsheet_llm.data_format_aggregation import AggregatedRegion
+from packages.spreadsheet_llm.sheet_model import Sheet
 
 
 def _addr(row: int, col: int) -> str:

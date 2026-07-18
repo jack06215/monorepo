@@ -48,16 +48,16 @@ from typing import Dict, List, Optional, Set, Tuple
 
 from openpyxl.utils import get_column_letter
 
-from python.spreadsheet_llm.data_format_aggregation import (
+from packages.spreadsheet_llm.data_format_aggregation import (
     AggregatedRegion,  # reused as a plain container, no aggregation logic invoked
 )
-from python.spreadsheet_llm.inverted_index import (
+from packages.spreadsheet_llm.inverted_index import (
     build_inverted_index,
     render_json_like,
     render_paper_style,
 )
-from python.spreadsheet_llm.sheet_model import Sheet, load_xlsx
-from python.spreadsheet_llm.structural_anchors import (
+from packages.spreadsheet_llm.sheet_model import Sheet, load_xlsx
+from packages.spreadsheet_llm.structural_anchors import (
     extract_structural_anchors,
     find_row_anchors,
 )

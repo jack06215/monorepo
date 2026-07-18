@@ -30,21 +30,21 @@ All commands run from the monorepo root (imports are monorepo-absolute):
 
 ```bash
 # Regenerate the demo spreadsheets in sample_data/
-poetry run python -m python.spreadsheet_llm.make_test_xlsx
+poetry run python -m packages.spreadsheet_llm.make_test_xlsx
 
 # Run the full paper pipeline (all 3 modules)
-poetry run python -m python.spreadsheet_llm.sheet_compressor \
-    python/spreadsheet_llm/sample_data/test_sheet.xlsx
+poetry run python -m packages.spreadsheet_llm.sheet_compressor \
+    packages/spreadsheet_llm/sample_data/test_sheet.xlsx
 
 # Run the LLM-description encoder (Modules 1+2 + row sampling, real values kept)
-poetry run python -m python.spreadsheet_llm.llm_context_encoder \
-    python/spreadsheet_llm/sample_data/big_sheet.xlsx
+poetry run python -m packages.spreadsheet_llm.llm_context_encoder \
+    packages/spreadsheet_llm/sample_data/big_sheet.xlsx
 
 # Tests
-poetry run python -m pytest python/spreadsheet_llm/
+poetry run python -m pytest packages/spreadsheet_llm/
 
 # sheet_compressor options
-poetry run python -m python.spreadsheet_llm.sheet_compressor my_file.xlsx \
+poetry run python -m packages.spreadsheet_llm.sheet_compressor my_file.xlsx \
     --sheet "Sheet2" \        # pick a specific sheet (default: active)
     --k 4 \                   # structural-anchor neighborhood radius (paper default)
     --format paper \          # "paper" (tuple style) or "json" output
@@ -55,7 +55,7 @@ poetry run python -m python.spreadsheet_llm.sheet_compressor my_file.xlsx \
 Programmatic use:
 
 ```python
-from python.spreadsheet_llm.sheet_compressor import compress_xlsx
+from packages.spreadsheet_llm.sheet_compressor import compress_xlsx
 
 report = compress_xlsx("my_file.xlsx", k=4)
 print(report.compression_ratio)   # e.g. 12.97
@@ -77,7 +77,7 @@ print(report.compressed_text)     # what you'd send to the LLM
   `LLM_CONTEXT_ENCODER_INSTRUCTION.md` as the LLM's instructions.
 
 ```python
-from python.spreadsheet_llm.llm_context_encoder import build_llm_context
+from packages.spreadsheet_llm.llm_context_encoder import build_llm_context
 
 result = build_llm_context("my_file.xlsx", k=4, sample_rows=5)
 print(result.compressed_text)     # LLM-ready context, real values + gap notes

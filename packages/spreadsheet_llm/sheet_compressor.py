@@ -29,14 +29,14 @@ import argparse
 from dataclasses import dataclass
 from typing import Optional
 
-from python.spreadsheet_llm.data_format_aggregation import aggregate_by_data_format
-from python.spreadsheet_llm.inverted_index import (
+from packages.spreadsheet_llm.data_format_aggregation import aggregate_by_data_format
+from packages.spreadsheet_llm.inverted_index import (
     build_inverted_index,
     render_json_like,
     render_paper_style,
 )
-from python.spreadsheet_llm.sheet_model import Sheet, load_xlsx
-from python.spreadsheet_llm.structural_anchors import (
+from packages.spreadsheet_llm.sheet_model import Sheet, load_xlsx
+from packages.spreadsheet_llm.structural_anchors import (
     ExtractionResult,
     extract_structural_anchors,
 )

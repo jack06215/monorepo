@@ -27,7 +27,7 @@ import re
 from dataclasses import dataclass
 from typing import Dict, List, Tuple
 
-from python.spreadsheet_llm.sheet_model import Cell, Sheet
+from packages.spreadsheet_llm.sheet_model import Cell, Sheet
 
 # ---- Step 1: map a cell to a coarse data type -----------------------------
 

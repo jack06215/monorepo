@@ -8,7 +8,7 @@ exports_files(
 test_suite(
     name = "leetcode_algorithm_test",
     tests = [
-        "//python/leetcode_algorithm:all_tests",
+        "//packages/leetcode_algorithm:all_tests",
     ],
 )
 

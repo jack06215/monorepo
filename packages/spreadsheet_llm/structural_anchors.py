@@ -21,7 +21,7 @@ the paper.
 from dataclasses import dataclass, replace
 from typing import List, Set, Tuple
 
-from python.spreadsheet_llm.sheet_model import Sheet
+from packages.spreadsheet_llm.sheet_model import Sheet
 
 
 def _row_signature(sheet: Sheet, row: int) -> Tuple:

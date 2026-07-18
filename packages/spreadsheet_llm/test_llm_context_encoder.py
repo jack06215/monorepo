@@ -3,7 +3,7 @@ Unit tests for llm_context_encoder (Module 1 + row sampling + Module 2,
 no data-format aggregation).
 
 Run with:  python3 -m unittest test_llm_context_encoder -v
-       or: python3 -m pytest python/spreadsheet_llm/test_llm_context_encoder.py
+       or: python3 -m pytest packages/spreadsheet_llm/test_llm_context_encoder.py
 """
 
 import datetime
@@ -13,15 +13,15 @@ import unittest
 import openpyxl
 from openpyxl.styles import Color, Font, PatternFill
 
-from python.spreadsheet_llm.llm_context_encoder import (_coalesce_rectangles,
+from packages.spreadsheet_llm.llm_context_encoder import (_coalesce_rectangles,
                                                         _find_module1_gaps,
                                                         apply_row_sampling,
                                                         build_llm_context,
                                                         build_style_index,
                                                         literal_regions,
                                                         sample_long_row_runs)
-from python.spreadsheet_llm.sheet_model import Cell, Sheet, load_xlsx
-from python.spreadsheet_llm.structural_anchors import find_row_anchors
+from packages.spreadsheet_llm.sheet_model import Cell, Sheet, load_xlsx
+from packages.spreadsheet_llm.structural_anchors import find_row_anchors
 
 TMP_PATH = "/tmp/_llm_ctx_test.xlsx"
 

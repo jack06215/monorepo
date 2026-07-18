@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select, WebDriverWait
 
-from python.pokemon_cafe_booking import definition
+from packages.pokemon_cafe_booking import definition
 
 
 class BookingTimetable(BaseModel):

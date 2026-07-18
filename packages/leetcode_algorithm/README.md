@@ -6,5 +6,5 @@ Catch2 header) and/or a Python implementation (`*.py`, tested via stdlib
 `unittest`).
 
 ```sh
-bazel query "//python/leetcode_algorithm:*"
+bazel query "//packages/leetcode_algorithm:*"
 ```

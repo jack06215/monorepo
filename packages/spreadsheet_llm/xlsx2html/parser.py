@@ -26,9 +26,9 @@ from openpyxl.utils.cell import (column_index_from_string,
                                  coordinate_from_string)
 from openpyxl.worksheet.worksheet import Worksheet
 
-from python.spreadsheet_llm.xlsx2html import types
-from python.spreadsheet_llm.xlsx2html.image_util import SheetImageLoader
-from python.spreadsheet_llm.xlsx2html.style_util import (StyleRegistry,
+from packages.spreadsheet_llm.xlsx2html import types
+from packages.spreadsheet_llm.xlsx2html.image_util import SheetImageLoader
+from packages.spreadsheet_llm.xlsx2html.style_util import (StyleRegistry,
                                                          cell_css,
                                                          extract_theme_palette)
 

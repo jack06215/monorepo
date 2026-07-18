@@ -1,15 +1,15 @@
-# Python projects
+# Packages
 
 - List of targets
 
 ```sh
-bazel query "//python/..."
+bazel query "//packages/..."
 ```
 
 - List of target labels
 
 ```sh
-bazel query "//python/hello_world:*"
+bazel query "//packages/hello_world:*"
 ```
 
 ## Python-specific command

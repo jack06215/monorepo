@@ -1,7 +1,7 @@
 """Unit tests for the xlsx2html package (openpyxl-native, style-preserving
 Excel -> HTML conversion).
 
-Run with:  poetry run python -m pytest python/spreadsheet_llm/xlsx2html/
+Run with:  poetry run python -m pytest packages/spreadsheet_llm/xlsx2html/
 """
 
 import datetime
@@ -16,12 +16,12 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.styles.colors import Color
 from PIL import Image
 
-from python.spreadsheet_llm.xlsx2html.parser import Xlsx2Html, _render_value
-from python.spreadsheet_llm.xlsx2html.style_util import (DEFAULT_THEME_PALETTE,
+from packages.spreadsheet_llm.xlsx2html.parser import Xlsx2Html, _render_value
+from packages.spreadsheet_llm.xlsx2html.style_util import (DEFAULT_THEME_PALETTE,
                                                          _apply_tint,
                                                          extract_theme_palette,
                                                          resolve_color)
-from python.spreadsheet_llm.xlsx2html.types import ParsedWorksheet
+from packages.spreadsheet_llm.xlsx2html.types import ParsedWorksheet
 
 TMP_PATH = "/tmp/_xlsx2html_test.xlsx"
 TMP_PNG = "/tmp/_xlsx2html_test.png"
