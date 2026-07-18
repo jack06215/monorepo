@@ -1,0 +1,51 @@
+name: Renovate
+
+on:
+  # Renovate's own `schedule` in .github/renovate.json5 is the real gate on when
+  # PRs may be raised; this cron only has to fire often enough to cover it.
+  # Running daily means a missed Monday window is picked up the next morning.
+  schedule:
+    - cron: "0 18 * * *" # 03:00 Asia/Tokyo
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: "Dry run: log what would happen, open no PRs"
+        type: boolean
+        default: false
+      logLevel:
+        description: "Log level"
+        type: choice
+        options:
+          - info
+          - debug
+        default: info
+
+concurrency:
+  group: renovate
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      # Needed only so `configurationFile` exists on disk for the action to read.
+      # Renovate clones the repo itself over the API for the actual work.
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Renovate
+        uses: renovatebot/github-action@v46.1.19
+        with:
+          token: ${{ secrets.RENOVATE_TOKEN }}
+          configurationFile: .github/renovate-global.js
+        env:
+          LOG_LEVEL: ${{ inputs.logLevel || 'info' }}
+          # `null` is Renovate's documented default for dryRun, i.e. "run for
+          # real". An empty string would instead be read as an invalid value.
+          # Other accepted values: extract, lookup, full.
+          RENOVATE_DRY_RUN: ${{ inputs.dryRun && 'full' || 'null' }}
