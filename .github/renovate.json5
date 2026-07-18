@@ -100,6 +100,10 @@
       matchManagers: ["poetry"],
       matchUpdateTypes: ["minor", "patch"],
       groupName: "python deps (non-major)",
+      // Without this the branch is literally `renovate/python-deps-(non-major)`
+      // -- parens are legal in a ref but need shell quoting on every checkout.
+      // groupSlug sets the branch name independently of the PR title.
+      groupSlug: "python-non-major",
       semanticCommitScope: "deps",
     },
 
