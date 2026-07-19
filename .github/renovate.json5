@@ -58,12 +58,8 @@
 
   timezone: "Asia/Tokyo",
 
-  // TEMPORARY (validation) -- revert to: schedule: ["* 0-6 * * 1"]
-  // Widened so a manual dispatch can create a real PR now and finally exercise
-  // the postUpgradeTasks export below, which no run has done yet. The 2026-07-18
-  // run extracted 84 deps cleanly but fell on a Sunday, outside the Monday
-  // window, so no branch was ever built.
-  schedule: ["at any time"],
+  // Weekly window: Monday 00:00-06:00 Asia/Tokyo.
+  schedule: ["* 0-6 * * 1"],
 
   // Everything lands as a PR for a human to merge. Renovate never commits to
   // master and never merges its own work.
@@ -73,41 +69,34 @@
   dependencyDashboard: true,
   rebaseWhen: "conflicted",
 
-  // TEMPORARY (validation) -- remove once the pin PR has merged.
-  // Closing a Renovate PR unmerged means "don't offer this again", and Renovate
-  // honours that permanently. PRs #9/#10 (renovate/python-non-major) and #11
-  // (renovate/python-pin) were closed during testing, so every run now creates
-  // the branch, finds the closed PR, and aborts with "Repository has changed
-  // during renovation". "always" ignores that memory so the branches get PRs.
-  //
-  // Do NOT leave this on: it makes every PR immortal -- closing one no longer
-  // dismisses it, it returns on the next run.
-  recreateWhen: "always",
-  // Capped at 1 so the validation dispatch yields a single PR to inspect
-  // instead of the grouped PR plus a separate PR per available major.
-  prConcurrentLimit: 1,
+  // 2 = room for the non-major group PR plus one major PR open at once,
+  // without letting majors queue up indefinitely behind each other.
+  prConcurrentLimit: 2,
   prHourlyLimit: 0,
 
-  // Exact pins instead of caret ranges. This is what makes minimumReleaseAge
-  // actually work: with `^6.10.1` in pyproject, poetry resolves the range to
-  // the newest match and drags in a version still inside the age window, which
-  // Renovate then rejects --
+  // Caret ranges, bumped forward on every update: `bump` moves the range's
+  // floor to match the newest allowed version (e.g. ^6.9.0 -> ^6.10.1), so the
+  // manifest diff still shows the version change per PR, without collapsing
+  // the range to an exact pin. package-mode = false (this is an app, not a
+  // published library) doesn't require ranges, but pyproject.toml is meant to
+  // read as human-authored intent; requirements.txt (regenerated below) stays
+  // the fully pinned and hashed artifact that Bazel actually consumes.
+  //
+  // Previously this was `rangeStrategy: "pin"`, because pinning was the only
+  // way to make `minimumReleaseAge` reliable: with a caret range, poetry
+  // resolves to the newest matching version regardless of what Renovate
+  // proposed, which could still be inside the age window --
   //   "Artifact update for colorlog resolved to version 6.11.0, which is a
   //    pending version that has not yet passed the Minimum Release Age"
-  // Renovate cannot hand poetry an exact target (renovatebot/renovate#41624),
-  // so the range has to go. Correct here anyway: package-mode = false means
-  // this is an app, not a published library, and requirements.txt is already
-  // fully pinned and hashed as the real Bazel input.
-  rangeStrategy: "pin",
+  // Renovate cannot hand poetry an exact target to enforce that against
+  // (renovatebot/renovate#41624). We dropped minimumReleaseAge below instead
+  // of keeping everything pinned.
+  rangeStrategy: "bump",
 
-  // Ignore any release younger than this. The common compromised-package
-  // pattern -- publish a malicious version, get caught, version yanked -- plays
-  // out within days, so holding new releases lets that happen to somebody else
-  // first. Costs nothing given updates only land weekly anyway.
-  //
-  // Override for a single run via the workflow's `minimumReleaseAge` input,
-  // e.g. "0 days" to pull in an urgent security fix immediately.
-  minimumReleaseAge: "10 days",
+  // No minimumReleaseAge: see the rangeStrategy comment above -- it isn't
+  // enforceable against caret ranges under poetry, so keeping it here would
+  // just be a false sense of protection. Revisit if upstream ever closes
+  // renovatebot/renovate#41624.
 
   // ---------------------------------------------------------------------------
   // Keep the Bazel-consumed export in sync
@@ -138,35 +127,9 @@
   // ---------------------------------------------------------------------------
 
   packageRules: [
-    // The one-time conversion of all 84 caret ranges to exact pins. Grouped so
-    // it arrives as a single reviewable PR rather than 84 separate ones.
-    {
-      matchManagers: ["poetry"],
-      matchUpdateTypes: ["pin"],
-      groupName: "pin python deps",
-      groupSlug: "python-pin",
-      semanticCommitScope: "deps",
-    },
-
-    // Pinning deletes the upper bounds these three currently carry in
-    // pyproject.toml, so restate them here or Renovate will start proposing
-    // versions the project deliberately excludes. Drop any that turn out to be
-    // stale rather than intentional.
-    {
-      matchManagers: ["poetry"],
-      matchDepNames: ["pytest"],
-      allowedVersions: "<8.2.0", // was: pytest = "<8.2.0"
-    },
-    {
-      matchManagers: ["poetry"],
-      matchDepNames: ["pandas-stubs"],
-      allowedVersions: "<2.2.4", // was: pandas-stubs = ">=2.2.2.0,<2.2.4"
-    },
-    {
-      matchManagers: ["poetry"],
-      matchDepNames: ["pytz"],
-      allowedVersions: "<2025.0", // was: pytz = "~2024.2"
-    },
+    // pytest, pandas-stubs and pytz carry their upper bounds directly in
+    // pyproject.toml again (<8.2.0 / <2.2.4 / ~2024.2), now that ranges are
+    // back -- no packageRule override needed to restate them.
 
     // ~85 direct deps: batch the boring ones into a single weekly PR.
     {

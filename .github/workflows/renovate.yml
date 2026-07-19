@@ -16,10 +16,6 @@ on:
           - info
           - debug
         default: info
-      minimumReleaseAge:
-        description: "Override the release-age gate for this run only, e.g. '0 days' to pull an urgent security fix immediately. Blank uses the committed 10 days."
-        type: string
-        default: ""
 
 concurrency:
   group: renovate
@@ -46,4 +42,3 @@ jobs:
         env:
           LOG_LEVEL: ${{ inputs.logLevel || 'info' }}
           RENOVATE_DRY_RUN: ${{ inputs.dryRun && 'full' || 'null' }}
-          RENOVATE_X_MIN_RELEASE_AGE: ${{ inputs.minimumReleaseAge }}
