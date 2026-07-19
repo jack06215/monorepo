@@ -392,6 +392,9 @@ def kubectl_cli(
     *,
     output: Literal["json"],
     logger: logging.Logger | None = None,
+    timeout: float | None = None,
+    stream: bool = False,
+    redactor: Redactor | None = None,
 ) -> dict[str, Any]: ...
 @overload
 def kubectl_cli(
@@ -399,6 +402,9 @@ def kubectl_cli(
     *,
     output: Literal["text"] = "text",
     logger: logging.Logger | None = None,
+    timeout: float | None = None,
+    stream: bool = False,
+    redactor: Redactor | None = None,
 ) -> str: ...
 
 
