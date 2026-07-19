@@ -150,6 +150,33 @@
       semanticCommitScope: "deps",
       labels: ["dependencies", "major"],
     },
+
+    // These release together upstream and poetry has to resolve them as one
+    // graph: langchain-openai's own minor releases can require a newer openai
+    // major (1.3.5 needs openai>=2.45.0,<3.0.0), which snapped PR #13 --
+    // langchain-openai got bumped in the non-major group while openai's
+    // required major bump stayed in a separate (unopened) major PR, so poetry
+    // lock failed with "version solving failed" and both artifact steps in
+    // that PR errored out.
+    //
+    // No matchUpdateTypes filter: this must catch major AND non-major updates
+    // for these packages so they always land in one branch together. Placed
+    // last so it overrides the groupName these deps would otherwise get from
+    // the non-major/major rules above.
+    {
+      matchManagers: ["poetry"],
+      matchDepNames: [
+        "langchain",
+        "langchain-community",
+        "langchain-ollama",
+        "langchain-openai",
+        "langgraph",
+        "openai",
+      ],
+      groupName: "langchain ecosystem",
+      groupSlug: "langchain-ecosystem",
+      semanticCommitScope: "deps",
+    },
   ],
 
   // Refresh the transitive tree periodically even when no direct dep moves.
