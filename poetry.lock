@@ -2,22 +2,20 @@
 
 [[package]]
 name = "adlfs"
-version = "2024.12.0"
-description = "Access Azure Datalake Gen1 with fsspec and dask"
+version = "2026.5.0"
+description = "Access Azure Blobs and Data Lake Storage (ADLS) Gen2 with fsspec and dask"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "adlfs-2024.12.0-py3-none-any.whl", hash = "sha256:00aab061ddec0413b2039487e656b62e01ece8ef1ca0493f76034a596cf069e3"},
-    {file = "adlfs-2024.12.0.tar.gz", hash = "sha256:04582bf7461a57365766d01a295a0a88b2b8c42c4fea06e2d673f62675cac5c6"},
+    {file = "adlfs-2026.5.0-py3-none-any.whl", hash = "sha256:7acf1d62eade0c1c0b1b0762b36cb0921a646dd41311af1d261f52fb24fe4e57"},
+    {file = "adlfs-2026.5.0.tar.gz", hash = "sha256:abb24e3afba57c6766799514b6f12b65b577d4946254961c15cef71e5b51f374"},
 ]
 
 [package.dependencies]
-aiohttp = ">=3.7.0"
 azure-core = ">=1.28.0,<2.0.0"
-azure-datalake-store = ">=0.0.53,<0.1"
 azure-identity = "*"
-azure-storage-blob = ">=12.17.0"
+azure-storage-blob = {version = ">=12.17.0", extras = ["aio"]}
 fsspec = ">=2023.12.0"
 
 [package.extras]
@@ -547,6 +545,7 @@ files = [
 ]
 
 [package.dependencies]
+aiohttp = {version = ">=3.0", optional = true, markers = "extra == \"aio\""}
 requests = ">=2.21.0"
 six = ">=1.11.0"
 typing-extensions = ">=4.6.0"
@@ -554,23 +553,6 @@ typing-extensions = ">=4.6.0"
 [package.extras]
 aio = ["aiohttp (>=3.0)"]
 tracing = ["opentelemetry-api (>=1.26,<2.0)"]
-
-[[package]]
-name = "azure-datalake-store"
-version = "0.0.53"
-description = "Azure Data Lake Store Filesystem Client Library for Python"
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "azure-datalake-store-0.0.53.tar.gz", hash = "sha256:05b6de62ee3f2a0a6e6941e6933b792b800c3e7f6ffce2fc324bc19875757393"},
-    {file = "azure_datalake_store-0.0.53-py2.py3-none-any.whl", hash = "sha256:a30c902a6e360aa47d7f69f086b426729784e71c536f330b691647a51dc42b2b"},
-]
-
-[package.dependencies]
-cffi = "*"
-msal = ">=1.16.0,<2"
-requests = ">=2.20.0"
 
 [[package]]
 name = "azure-identity"
@@ -604,7 +586,10 @@ files = [
 ]
 
 [package.dependencies]
-azure-core = ">=1.30.0"
+azure-core = [
+    {version = ">=1.30.0"},
+    {version = ">=1.30.0", extras = ["aio"], optional = true, markers = "extra == \"aio\""},
+]
 cryptography = ">=2.1.4"
 isodate = ">=0.6.1"
 typing-extensions = ">=4.6.0"
@@ -8777,4 +8762,8 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "3.13.13"
+<<<<<<< HEAD
 content-hash = "ea07c00f8c5daad10043e894f67dc51c267d4b6f32e44f52f458527bdd894ba7"
+=======
+content-hash = "d8bd3c908d5ecfd24086985d577b4a27960ed7c042342f046afb4b480697dfac"
+>>>>>>> ad2964d (fix(deps): update dependency adlfs to v2026)

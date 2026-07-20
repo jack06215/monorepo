@@ -1,6 +1,6 @@
-adlfs==2024.12.0 ; python_full_version == "3.13.13" \
-    --hash=sha256:00aab061ddec0413b2039487e656b62e01ece8ef1ca0493f76034a596cf069e3 \
-    --hash=sha256:04582bf7461a57365766d01a295a0a88b2b8c42c4fea06e2d673f62675cac5c6
+adlfs==2026.5.0 ; python_full_version == "3.13.13" \
+    --hash=sha256:7acf1d62eade0c1c0b1b0762b36cb0921a646dd41311af1d261f52fb24fe4e57 \
+    --hash=sha256:abb24e3afba57c6766799514b6f12b65b577d4946254961c15cef71e5b51f374
 aiohappyeyeballs==2.6.1 ; python_full_version == "3.13.13" \
     --hash=sha256:c3f9d0113123803ccadfdf3f0faa505bc78e6a72d1cc4806cbd719826e943558 \
     --hash=sha256:f349ba8f4b75cb25c99c5c2d84e997e485204d2902a9597802b0371f09331fb8
@@ -247,9 +247,6 @@ autopep8==2.3.2 ; python_full_version == "3.13.13" \
 azure-core==1.33.0 ; python_full_version == "3.13.13" \
     --hash=sha256:9b5b6d0223a1d38c37500e6971118c1e0f13f54951e6893968b38910bc9cda8f \
     --hash=sha256:f367aa07b5e3005fec2c1e184b882b0b039910733907d001c20fb08ebb8c0eb9
-azure-datalake-store==0.0.53 ; python_full_version == "3.13.13" \
-    --hash=sha256:05b6de62ee3f2a0a6e6941e6933b792b800c3e7f6ffce2fc324bc19875757393 \
-    --hash=sha256:a30c902a6e360aa47d7f69f086b426729784e71c536f330b691647a51dc42b2b
 azure-identity==1.21.0 ; python_full_version == "3.13.13" \
     --hash=sha256:258ea6325537352440f71b35c3dffe9d240eae4a5126c1b7ce5efd5766bd9fd9 \
     --hash=sha256:ea22ce6e6b0f429bc1b8d9212d5b9f9877bd4c82f1724bfa910760612c07a9a6
