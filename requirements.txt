@@ -2468,9 +2468,9 @@ pluggy==1.5.0 ; python_full_version == "3.13.13" \
 ply==3.11 ; python_full_version == "3.13.13" \
     --hash=sha256:00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3 \
     --hash=sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce
-pre-commit==3.8.0 ; python_full_version == "3.13.13" \
-    --hash=sha256:8bb6494d4a20423842e198980c9ecf9f96607a07ea29549e180eef9ae80fe7af \
-    --hash=sha256:9a90a53bf82fdd8778d58085faf8d83df56e40dfe18f45b19446e26bf1b3a63f
+pre-commit==4.6.0 ; python_full_version == "3.13.13" \
+    --hash=sha256:718d2208cef53fdc38206e40524a6d4d9576d103eb16f0fec11c875e7716e9d9 \
+    --hash=sha256:e2cf246f7299edcabcf15f9b0571fdce06058527f0a06535068a86d38089f29b
 primp==0.15.0 ; python_full_version == "3.13.13" \
     --hash=sha256:1af8ea4b15f57571ff7fc5e282a82c5eb69bc695e19b8ddeeda324397965b30a \
     --hash=sha256:1b281f4ca41a0c6612d4c6e68b96e28acfe786d226a427cd944baa8d7acd644f \
