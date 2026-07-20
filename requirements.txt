@@ -1364,9 +1364,9 @@ idna==3.10 ; python_full_version == "3.13.13" \
 iniconfig==2.1.0 ; python_full_version == "3.13.13" \
     --hash=sha256:3abbd2e30b36733fee78f9c7f7308f2d0050e88f0087fd25c2645f63c773e1c7 \
     --hash=sha256:9deba5723312380e77435581c6bf4935c94cbfab9b1ed33ef8d238ea168eb760
-instructor==1.5.2 ; python_full_version == "3.13.13" \
-    --hash=sha256:da25abbf1ab792fb094992f1d9ce593e26fe458cb1f9a8e7ebf9d68f3f2c757a \
-    --hash=sha256:fdd5ccbca21b4c558a24e9ba12c84afd907e65153a39d035f47c25800011a977
+instructor==1.6.3 ; python_full_version == "3.13.13" \
+    --hash=sha256:399cd90e30b5bc7cbd47acd7399c9c4e84926a96c20c8b5d00c5a04b41ed41ab \
+    --hash=sha256:a8f973fea621c0188009b65a3429a526c24aeb249fc24100b605ea496e92d622
 ipykernel==6.29.5 ; python_full_version == "3.13.13" \
     --hash=sha256:afdb66ba5aa354b09b91379bac28ae4afebbb30e8b39510c9690afb7a10421b5 \
     --hash=sha256:f093a22c4a40f8828f8e330a9c297cb93dcab13bd9678ded6de8e5cf81c56215
@@ -3543,9 +3543,9 @@ structlog==25.2.0 ; python_full_version == "3.13.13" \
 tabulate==0.9.0 ; python_full_version == "3.13.13" \
     --hash=sha256:0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c \
     --hash=sha256:024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f
-tenacity==8.5.0 ; python_full_version == "3.13.13" \
-    --hash=sha256:8bc6c0c8a09b31e6cad13c47afbed1a567518250a9a171418582ed8d9c20ca78 \
-    --hash=sha256:b594c2a5945830c267ce6b79a166228323ed52718f30302c1359836112346687
+tenacity==9.1.4 ; python_full_version == "3.13.13" \
+    --hash=sha256:6095a360c919085f28c6527de529e76a06ad89b23659fa881ae0649b867a9d55 \
+    --hash=sha256:adb31d4c263f2bd041081ab33b498309a57c77f9acf2db65aadf0898179cf93a
 termcolor==2.5.0 ; python_full_version == "3.13.13" \
     --hash=sha256:37b17b5fc1e604945c2642c872a3764b5d547a48009871aea3edd3afa180afb8 \
     --hash=sha256:998d8d27da6d48442e8e1f016119076b690d962507531df4890fcd2db2ef8a6f
