@@ -4,7 +4,7 @@ import io
 import re
 from typing import cast
 
-from docx2md import types
+from packages.docx2md import types
 
 
 class MarkdownFormatter:

@@ -1,17 +1,16 @@
 """Command line interface for Docx to Markdown conversion."""
 
-import argparse
 import os
 import pathlib
 
 import docx
-import pydantic
+from pydantic import BaseModel
 
-from common import path_util
-from docx2md import formatter, parser, types
+from packages.common import path_util
+from packages.docx2md import formatter, parser, types
 
 
-class Args(pydantic.BaseModel):
+class Args(BaseModel):
     """Command line arguments."""
 
     folder_path: pathlib.Path
@@ -42,21 +41,3 @@ def main(args: Args) -> None:
                 fp.write(md_formatter.ofile.getvalue())
         except Exception as e:
             raise e
-
-
-if __name__ == "__main__":
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument(
-        "--folder_path",
-        type=str,
-        help="Folder path to PPTX files.",
-        required=True,
-    )
-    arg_parser.add_argument(
-        "--output_path",
-        type=str,
-        help="Output folder path..",
-        required=True,
-    )
-    args = Args(**vars(arg_parser.parse_args()))
-    main(args)

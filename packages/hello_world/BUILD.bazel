@@ -3,7 +3,7 @@ load("//rules/python/lint:defs.bzl", "py_binary", "py_library")
 
 py_library(
     name = "hello_world_lib",
-    srcs = ["main.py"],
+    srcs = ["hello_world_cli.py"],
     deps = [
         requirement("pydantic"),
         requirement("pandas"),
@@ -12,8 +12,8 @@ py_library(
 
 py_binary(
     name = "hello_world",
-    srcs = ["main.py"],
-    main = "main.py",
+    srcs = ["hello_world_cli.py"],
+    main = "hello_world_cli.py",
     deps = [
         ":hello_world_lib",
     ],

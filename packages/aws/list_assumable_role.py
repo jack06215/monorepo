@@ -1,13 +1,11 @@
-import argparse
 import json
-import logging
-from dataclasses import dataclass
 
-from common.execute import aws_cli
+from pydantic import BaseModel
+
+from packages.common.execute import aws_cli
 
 
-@dataclass
-class Args:
+class Args(BaseModel):
     profile: str
 
 
@@ -42,12 +40,6 @@ def list_assumable_role(profile: str) -> list[str]:
     return result
 
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-
-    argparser = argparse.ArgumentParser()
-    argparser.add_argument("--profile", required=True)
-    args = Args(**vars(argparser.parse_args()))
-
+def main(args: Args) -> None:
     roles = list_assumable_role(args.profile)
     print(json.dumps(roles, indent=2, ensure_ascii=False))

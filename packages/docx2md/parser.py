@@ -13,7 +13,7 @@ import docx.text.hyperlink
 import docx.text.paragraph
 import docx.text.run
 
-from docx2md import docx_util, types
+from packages.docx2md import docx_util, types
 
 
 class DocxElementProcessor:

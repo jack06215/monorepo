@@ -1,14 +1,13 @@
-import argparse
 import json
 import logging
-from dataclasses import dataclass
 from typing import Any
 
-from common.execute import aws_cli
+from pydantic import BaseModel
+
+from packages.common.execute import aws_cli
 
 
-@dataclass
-class Args:
+class Args(BaseModel):
     profile: str
     role: str
 
@@ -54,12 +53,7 @@ def list_role_policy(role_name: str, profile: str) -> list[dict[str, Any]]:
     return results
 
 
-if __name__ == "__main__":
+def main(args: Args) -> None:
     logging.basicConfig(level=logging.INFO)
-    argparser = argparse.ArgumentParser()
-    argparser.add_argument("--profile", required=True)
-    argparser.add_argument("--role", required=True)
-    args = Args(**vars(argparser.parse_args()))
-
     policies = list_role_policy(args.role, args.profile)
     print(json.dumps(policies, indent=2, ensure_ascii=False))

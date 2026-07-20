@@ -1,0 +1,18 @@
+load("@monorepo_pip//:requirements.bzl", "requirement")
+load("//rules/python/lint:defs.bzl", "py_library")
+
+py_library(
+    name = "docx2md_lib",
+    srcs = [
+        "docx2md_cli.py",
+        "docx_util.py",
+        "formatter.py",
+        "parser.py",
+        "types.py",
+    ],
+    deps = [
+        "//packages/common",
+        requirement("pydantic"),
+        requirement("python-docx"),
+    ],
+)

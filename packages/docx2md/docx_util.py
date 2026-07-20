@@ -10,7 +10,7 @@ import docx.text
 import docx.text.font
 import docx.text.paragraph
 
-from docx2md import types
+from packages.docx2md import types
 
 
 def is_strong(font: docx.text.font.Font) -> bool:

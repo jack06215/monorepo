@@ -14,7 +14,6 @@ py_library(
         "sys_util.py",
     ],
     imports = [".."],
-    visibility = ["//packages:__subpackages__"],
     deps = [
         requirement("langchain-core"),
         requirement("langchain-ollama"),

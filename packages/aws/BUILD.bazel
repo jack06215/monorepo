@@ -1,0 +1,22 @@
+load("@monorepo_pip//:requirements.bzl", "requirement")
+load("//rules/python/lint:defs.bzl", "py_library")
+
+py_library(
+    name = "list_assumable_role_lib",
+    srcs = ["list_assumable_role.py"],
+    visibility = ["//packages:__subpackages__"],
+    deps = [
+        "//packages/common",
+        requirement("pydantic"),
+    ],
+)
+
+py_library(
+    name = "list_role_policy_lib",
+    srcs = ["list_role_policy.py"],
+    visibility = ["//packages:__subpackages__"],
+    deps = [
+        "//packages/common",
+        requirement("pydantic"),
+    ],
+)
