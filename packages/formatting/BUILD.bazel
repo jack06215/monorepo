@@ -1,9 +1,11 @@
 load("@monorepo_pip//:requirements.bzl", "requirement")
+load("@rules_python//python:py_test.bzl", "py_test")
 load("//rules/python/lint:defs.bzl", "py_library")
 
 py_library(
     name = "jira_ticket_lib",
     srcs = ["jira_ticket.py"],
+    imports = [".."],
     deps = [
         requirement("pydantic"),
     ],
@@ -12,6 +14,7 @@ py_library(
 py_library(
     name = "jsonl_unescape_lib",
     srcs = ["jsonl_unescape.py"],
+    imports = [".."],
     deps = [
         requirement("pydantic"),
     ],
@@ -20,7 +23,32 @@ py_library(
 py_library(
     name = "kibana_response_stringify_lib",
     srcs = ["kibana_response_stringify.py"],
+    imports = [".."],
     deps = [
         requirement("pydantic"),
     ],
+)
+
+_TEST_SRCS = glob(["test_*.py"])
+
+_TEST_DEPS = {
+    "test_jira_ticket": [":jira_ticket_lib"],
+    "test_jsonl_unescape": [":jsonl_unescape_lib"],
+    "test_kibana_response_stringify": [":kibana_response_stringify_lib"],
+}
+
+[
+    py_test(
+        name = src[:-len(".py")],
+        srcs = [src],
+        legacy_create_init = False,
+        main = src,
+        deps = _TEST_DEPS[src[:-len(".py")]],
+    )
+    for src in _TEST_SRCS
+]
+
+test_suite(
+    name = "test_all",
+    tests = [src[:-len(".py")] for src in _TEST_SRCS],
 )
