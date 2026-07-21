@@ -22,10 +22,7 @@ py_library(
         requirement("pydantic"),
         requirement("tenacity"),
     ],
-    visibility = [
-        "//packages/aws:__pkg__",
-        "//packages/docx2md:__pkg__",
-    ],
+    visibility = ["//visibility:public"],
 )
 
 _TEST_SRCS = glob(["test_*.py"])
