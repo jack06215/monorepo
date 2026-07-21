@@ -10,6 +10,7 @@ py_library(
         "parser.py",
         "types.py",
     ],
+    visibility = ["//packages:__pkg__"],
     deps = [
         "//packages/common",
         requirement("pydantic"),
