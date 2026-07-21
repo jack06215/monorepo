@@ -1,0 +1,26 @@
+load("@monorepo_pip//:requirements.bzl", "requirement")
+load("//rules/python/lint:defs.bzl", "py_library")
+load("//rules/python/streamlit:defs.bzl", "streamlit_app")
+
+# Shared first-party code imported by main.py and the pages. Kept in a
+# py_library so it is linted; it lands next to main.py in runfiles so
+# `import shared` resolves when streamlit execs each page.
+py_library(
+    name = "hello_streamlit_lib",
+    srcs = ["shared.py"],
+)
+
+streamlit_app(
+    name = "hello_streamlit",
+    app = "main.py",
+    # Streamlit auto-discovers additional pages from ./pages relative to the
+    # entry point, so they must ride along in the binary's runfiles.
+    data = glob(["pages/**/*.py"]),
+    # Static env var, read on the About page via os.getenv("APP_ENV"). Forwarded
+    # to py_binary and applied by `bazel run` (override per run with --run_env).
+    env = {"APP_ENV": "demo"},
+    deps = [
+        ":hello_streamlit_lib",
+        requirement("pandas"),
+    ],
+)
