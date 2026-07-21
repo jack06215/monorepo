@@ -1408,9 +1408,9 @@ idna==3.10 ; python_full_version == "3.13.13" \
 iniconfig==2.1.0 ; python_full_version == "3.13.13" \
     --hash=sha256:3abbd2e30b36733fee78f9c7f7308f2d0050e88f0087fd25c2645f63c773e1c7 \
     --hash=sha256:9deba5723312380e77435581c6bf4935c94cbfab9b1ed33ef8d238ea168eb760
-instructor==1.5.2 ; python_full_version == "3.13.13" \
-    --hash=sha256:da25abbf1ab792fb094992f1d9ce593e26fe458cb1f9a8e7ebf9d68f3f2c757a \
-    --hash=sha256:fdd5ccbca21b4c558a24e9ba12c84afd907e65153a39d035f47c25800011a977
+instructor==1.6.3 ; python_full_version == "3.13.13" \
+    --hash=sha256:399cd90e30b5bc7cbd47acd7399c9c4e84926a96c20c8b5d00c5a04b41ed41ab \
+    --hash=sha256:a8f973fea621c0188009b65a3429a526c24aeb249fc24100b605ea496e92d622
 ipykernel==6.29.5 ; python_full_version == "3.13.13" \
     --hash=sha256:afdb66ba5aa354b09b91379bac28ae4afebbb30e8b39510c9690afb7a10421b5 \
     --hash=sha256:f093a22c4a40f8828f8e330a9c297cb93dcab13bd9678ded6de8e5cf81c56215
