@@ -8762,8 +8762,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "3.13.13"
-<<<<<<< HEAD
-content-hash = "ea07c00f8c5daad10043e894f67dc51c267d4b6f32e44f52f458527bdd894ba7"
-=======
 content-hash = "d8bd3c908d5ecfd24086985d577b4a27960ed7c042342f046afb4b480697dfac"
->>>>>>> ad2964d (fix(deps): update dependency adlfs to v2026)
