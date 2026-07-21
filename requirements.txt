@@ -3596,9 +3596,9 @@ tabulate==0.9.0 ; python_full_version == "3.13.13" \
 tenacity==8.5.0 ; python_full_version == "3.13.13" \
     --hash=sha256:8bc6c0c8a09b31e6cad13c47afbed1a567518250a9a171418582ed8d9c20ca78 \
     --hash=sha256:b594c2a5945830c267ce6b79a166228323ed52718f30302c1359836112346687
-termcolor==2.5.0 ; python_full_version == "3.13.13" \
-    --hash=sha256:37b17b5fc1e604945c2642c872a3764b5d547a48009871aea3edd3afa180afb8 \
-    --hash=sha256:998d8d27da6d48442e8e1f016119076b690d962507531df4890fcd2db2ef8a6f
+termcolor==3.3.0 ; python_full_version == "3.13.13" \
+    --hash=sha256:348871ca648ec6a9a983a13ab626c0acce02f515b9e1983332b17af7979521c5 \
+    --hash=sha256:cf642efadaf0a8ebbbf4bc7a31cec2f9b5f21a9f726f4ccbb08192c9c26f43a5
 terminado==0.18.1 ; python_full_version == "3.13.13" \
     --hash=sha256:a4468e1b37bb318f8a86514f65814e1afc977cf29b3992a4500d9dd305dcceb0 \
     --hash=sha256:de09f2c4b85de4765f7714688fff57d3e75bad1f909b589fde880460c753fd2e
